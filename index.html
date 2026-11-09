@@ -1,0 +1,2337 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIZIRI — Moroccan Soul, Modern Lines | International Fashion Showcase</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tiziri: {
+                            sand: '#D8C3A5',
+                            sandlight: '#F4ECE1',
+                            sanddark: '#BCA383',
+                            terracotta: '#B85B35',
+                            terracottadark: '#964322',
+                            brown: '#3D2314',
+                            black: '#141312',
+                            cream: '#FDFBF7',
+                            olive: '#6B705C',
+                            indigo: '#1B2A4A',
+                            gold: '#D4AF37'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom cursor only on mouse/trackpad devices (phones & tablets keep normal touch behaviour) */
+        @media (hover: hover) and (pointer: fine) {
+            * {
+                cursor: none !important; /* Managed by custom cursor */
+            }
+        }
+        @media not all and (hover: hover) and (pointer: fine) {
+            #cursor-dot, #cursor-ring { display: none !important; }
+        }
+
+        /* Product card image slideshow (Minimalist Jewelry lines) */
+        .slide-img { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease, transform 0.5s ease; }
+        .slide-img.is-active { opacity: 1; }
+        .slide-dot { width: 6px; height: 6px; border-radius: 9999px; background: rgba(253,251,247,0.6); transition: all 0.3s ease; }
+        .slide-dot.is-active { width: 18px; background: #B85B35; }
+
+        /* Language switch fade */
+        body.lang-switching main, body.lang-switching section { opacity: 0.35; transition: opacity 0.15s ease; }
+        section { transition: opacity 0.25s ease; }
+
+        body {
+            background-color: #FDFBF7;
+            color: #3D2314;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFBF7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D8C3A5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B85B35;
+        }
+
+        /* Custom Pointer Elements */
+        #cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: #B85B35;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s ease-out, background-color 0.2s ease;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(184, 91, 53, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s ease-out, width 0.25s ease, height 0.25s ease, border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        body.cursor-hover #cursor-ring {
+            width: 58px;
+            height: 58px;
+            border-color: #B85B35;
+            background-color: rgba(184, 91, 53, 0.08);
+        }
+
+        body.cursor-hover #cursor-dot {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: #3D2314;
+        }
+
+        /* Interactive 3D Tilt & Spotlight Card Base */
+        .tilt-card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            will-change: transform;
+        }
+
+        .tilt-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: radial-gradient(var(--spotlight-size, 400px) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(184, 91, 53, 0.35), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .tilt-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Spotlight inner glow */
+        .spotlight-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(var(--spotlight-size, 500px) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(216, 195, 165, 0.18), transparent 50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .tilt-card:hover .spotlight-overlay {
+            opacity: 1;
+        }
+
+        /* Inspection Magnifier Lens */
+        .magnifier-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magnifier-lens {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 2px solid #B85B35;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(0,0,0,0.3), inset 0 0 15px rgba(216, 195, 165, 0.5);
+            background-repeat: no-repeat;
+            transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+            z-index: 30;
+        }
+
+        .magnifier-container:hover .magnifier-lens {
+            opacity: 1;
+        }
+
+        /* Ambient Hero Canvas */
+        #moonlight-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Custom Glassmorphic Panels */
+        .glass-panel {
+            background: rgba(253, 251, 247, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(216, 195, 165, 0.3);
+        }
+
+        .glass-panel-dark {
+            background: rgba(20, 19, 18, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(216, 195, 165, 0.15);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-tiziri-brown selection:bg-tiziri-terracotta selection:text-tiziri-cream">
+
+    <!-- Custom Cursor UI Elements -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Notification Toast -->
+    <div id="toast-container" data-i18n-skip class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full transition-all duration-300 glass-panel border-b border-tiziri-sand/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo & Brand Wordmark -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full border border-tiziri-terracotta/40 flex items-center justify-center bg-tiziri-sandlight/50 group-hover:border-tiziri-terracotta transition-colors">
+                    <!-- Riad Arch Motif SVG -->
+                    <svg class="w-6 h-6 text-tiziri-terracotta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 3C7 3 4 7 4 12V21H20V12C20 7 17 3 12 3Z" />
+                        <path d="M12 7C9.5 7 7 9.5 7 13V21H17V13C17 9.5 14.5 7 12 7Z" stroke-dasharray="2 2"/>
+                        <circle cx="12" cy="11" r="1.5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-serif text-2xl tracking-[0.2em] font-semibold text-tiziri-brown block leading-none group-hover:text-tiziri-terracotta transition-colors">TIZIRI</span>
+                    <span class="text-[9px] uppercase tracking-[0.3em] text-tiziri-brown/60 font-medium">Casablanca • Paris</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-[0.15em] text-tiziri-brown/80">
+                <a href="#collection" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Collection 01</a>
+                <a href="#story" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Heritage & Craft</a>
+                <a href="#strategy" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Global Strategy</a>
+                <a href="#economics" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Financial Model</a>
+                <a href="#risks" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Risk Matrix</a>
+            </nav>
+
+            <!-- Currency Selector & Interactive Buttons -->
+            <div class="flex items-center gap-4">
+                
+                <!-- Currency / Country Selector -->
+                <div class="relative inline-block text-left">
+                    <select id="currency-selector" data-i18n-skip title="Country, language & currency" class="bg-tiziri-sandlight/80 border border-tiziri-sand hover:border-tiziri-terracotta text-tiziri-brown text-xs font-medium rounded-full px-3 py-1.5 focus:outline-none transition-colors">
+                        <option value="EUR_INT">🌍 International · English (€)</option>
+                        <option value="EUR_FR">🇫🇷 France · Français (€)</option>
+                        <option value="EUR_ES">🇪🇸 España · Español (€)</option>
+                        <option value="EUR_DE">🇩🇪 Deutschland · Deutsch (€)</option>
+                        <option value="MAD_MA">🇲🇦 Maroc · Français (MAD)</option>
+                    </select>
+                </div>
+
+                <!-- Wishlist Toggle Button -->
+                <button id="wishlist-btn" class="p-2 rounded-full hover:bg-tiziri-sandlight text-tiziri-brown relative transition-colors" title="View Wishlist">
+                    <i class="fa-regular fa-heart text-lg"></i>
+                    <span id="wishlist-badge" class="absolute -top-1 -right-1 bg-tiziri-terracotta text-tiziri-cream text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center opacity-0 scale-50 transition-all">0</span>
+                </button>
+
+                <!-- Cart Toggle Button -->
+                <button id="cart-btn" class="p-2.5 px-4 rounded-full bg-tiziri-brown text-tiziri-cream hover:bg-tiziri-terracotta flex items-center gap-2.5 text-xs font-semibold tracking-wider transition-all shadow-md hover:shadow-lg">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>BAG</span>
+                    <span id="cart-count-badge" class="bg-tiziri-sand text-tiziri-brown px-1.5 py-0.5 rounded-full text-[10px] font-bold">0</span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-tiziri-brown hover:text-tiziri-terracotta">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-tiziri-sand/40 px-6 py-4 flex flex-col gap-3 text-sm font-semibold tracking-wider uppercase">
+            <a href="#collection" class="mobile-link py-2 hover:text-tiziri-terracotta">Collection 01</a>
+            <a href="#story" class="mobile-link py-2 hover:text-tiziri-terracotta">Heritage & Craft</a>
+            <a href="#strategy" class="mobile-link py-2 hover:text-tiziri-terracotta">Global Strategy</a>
+            <a href="#economics" class="mobile-link py-2 hover:text-tiziri-terracotta">Financial Model</a>
+            <a href="#risks" class="mobile-link py-2 hover:text-tiziri-terracotta">Risk Matrix</a>
+        </div>
+    </header>
+
+    <!-- Hero Section with Cursor-Reactive Canvas -->
+    <section class="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 overflow-hidden bg-gradient-to-b from-tiziri-cream via-tiziri-sandlight/40 to-tiziri-cream">
+        
+        <!-- Interactive Canvas for Cursor Moonlight Dust & Geometry -->
+        <canvas id="moonlight-canvas"></canvas>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <!-- Brand Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-tiziri-sandlight/90 border border-tiziri-sand text-tiziri-brown text-xs tracking-[0.25em] uppercase font-semibold mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-tiziri-terracotta animate-pulse"></span>
+                <span>International Expansion Plan • Morocco ➔ EU</span>
+            </div>
+
+            <!-- Title & Slogan -->
+            <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal tracking-tight text-tiziri-black mb-6 leading-[1.08]">
+                Moroccan Soul, <br>
+                <span class="italic font-light text-tiziri-terracotta">Modern Lines.</span>
+            </h1>
+
+            <p data-i18n-html="heroIntro" class="max-w-2xl mx-auto text-base sm:text-lg text-tiziri-brown/80 font-light leading-relaxed mb-10">
+                <strong class="font-semibold text-tiziri-brown">TIZIRI</strong> (Amazigh for <em>'Moonlight'</em>) fuses 80-90% sleek contemporary European design with 10-20% authentic Moroccan heritage. Crafted in Casablanca, Marrakech, and Fez for discerning global tastemakers.
+            </p>
+
+            <!-- Hero Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+                <a href="#collection" class="px-8 py-4 rounded-full bg-tiziri-terracotta text-tiziri-cream font-semibold text-xs tracking-[0.2em] uppercase hover:bg-tiziri-terracottadark transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                    Explore Collection 01
+                </a>
+                <button onclick="openBusinessReportModal()" class="px-8 py-4 rounded-full border border-tiziri-brown/40 text-tiziri-brown font-semibold text-xs tracking-[0.2em] uppercase hover:bg-tiziri-brown hover:text-tiziri-cream transition-all shadow-sm">
+                    <i class="fa-solid fa-file-contract mr-2"></i> View Business Plan
+                </button>
+            </div>
+
+            <!-- Interactive Metric Cards with 3D Cursor Tilt & Spotlight -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                
+                <div class="tilt-card p-5 rounded-2xl glass-panel text-center border border-tiziri-sand/40 hover:shadow-xl transition-all">
+                    <div class="spotlight-overlay"></div>
+                    <div class="font-serif text-3xl sm:text-4xl font-semibold text-tiziri-terracotta mb-1">80-90%</div>
+                    <div class="text-[11px] uppercase tracking-wider text-tiziri-brown/70 font-medium">Modern Design</div>
+                </div>
+
+                <div class="tilt-card p-5 rounded-2xl glass-panel text-center border border-tiziri-sand/40 hover:shadow-xl transition-all">
+                    <div class="spotlight-overlay"></div>
+                    <div class="font-serif text-3xl sm:text-4xl font-semibold text-tiziri-brown mb-1">10-20%</div>
+                    <div class="text-[11px] uppercase tracking-wider text-tiziri-brown/70 font-medium">Moroccan Identity</div>
+                </div>
+
+                <div class="tilt-card p-5 rounded-2xl glass-panel text-center border border-tiziri-sand/40 hover:shadow-xl transition-all">
+                    <div class="spotlight-overlay"></div>
+                    <div class="font-serif text-3xl sm:text-4xl font-semibold text-tiziri-indigo mb-1">3 EU</div>
+                    <div class="text-[11px] uppercase tracking-wider text-tiziri-brown/70 font-medium">Target Markets</div>
+                </div>
+
+                <div class="tilt-card p-5 rounded-2xl glass-panel text-center border border-tiziri-sand/40 hover:shadow-xl transition-all">
+                    <div class="spotlight-overlay"></div>
+                    <div class="font-serif text-3xl sm:text-4xl font-semibold text-tiziri-gold mb-1">0% Tariff</div>
+                    <div class="text-[11px] uppercase tracking-wider text-tiziri-brown/70 font-medium">EU FTA Exemption</div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Collection 01 Showcase Section -->
+    <section id="collection" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-tiziri-sand/30 pb-6">
+            <div>
+                <span class="text-xs uppercase tracking-[0.3em] text-tiziri-terracotta font-semibold block mb-2">Launch Range</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-tiziri-black font-normal">Collection 01 <span class="italic text-tiziri-terracotta">'Marrakech'</span></h2>
+                <!-- Market note: tells the visitor which price list / delivery rules apply -->
+                <p id="market-note" data-i18n-skip class="mt-3 inline-flex items-center gap-2 text-[11px] font-medium text-tiziri-brown/70 bg-tiziri-sandlight/70 border border-tiziri-sand/50 rounded-full px-3 py-1"></p>
+            </div>
+            
+            <!-- Category Filter Pills -->
+            <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="category-filters">
+                <button data-filter="all" class="filter-btn active px-4 py-2 rounded-full text-xs uppercase tracking-wider font-semibold transition-all bg-tiziri-brown text-tiziri-cream">All Items</button>
+                <button data-filter="Apparel" class="filter-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-semibold transition-all bg-tiziri-sandlight text-tiziri-brown hover:bg-tiziri-sand">Apparel</button>
+                <button data-filter="Leather" class="filter-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-semibold transition-all bg-tiziri-sandlight text-tiziri-brown hover:bg-tiziri-sand">Leather Goods</button>
+                <button data-filter="Accessories" class="filter-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-semibold transition-all bg-tiziri-sandlight text-tiziri-brown hover:bg-tiziri-sand">Accessories</button>
+                <button data-filter="Jewelry" class="filter-btn px-4 py-2 rounded-full text-xs uppercase tracking-wider font-semibold transition-all bg-tiziri-sandlight text-tiziri-brown hover:bg-tiziri-sand">Jewelry</button>
+            </div>
+        </div>
+
+        <!-- Products Grid with Cursor Tilt & Cursor Lighting -->
+        <div id="products-grid" data-i18n-skip class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Dynamic Product Cards Injected via JS -->
+        </div>
+
+    </section>
+
+    <!-- Brand Story & Craftsmanship Hub -->
+    <section id="story" class="py-20 bg-tiziri-sandlight/30 border-y border-tiziri-sand/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5">
+                    <span class="text-xs uppercase tracking-[0.3em] text-tiziri-terracotta font-semibold block mb-2">Authentic Craft & Provenance</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl font-normal text-tiziri-black mb-6 leading-tight">
+                        Rooted in Heritage, <br>
+                        <span class="italic text-tiziri-terracotta">Refined for the World.</span>
+                    </h2>
+                    <p class="text-sm sm:text-base text-tiziri-brown/80 leading-relaxed mb-6">
+                        TIZIRI resolves a common market dilemma: fashion enthusiasts who love North African craftsmanship often find either souvenir-style costume wear or generic global fast fashion.
+                    </p>
+                    <p class="text-sm sm:text-base text-tiziri-brown/80 leading-relaxed mb-8">
+                        We produce in controlled, sustainable small batches across three historical artisan hubs in Morocco, combining modern precision tailoring with heritage geometric hand embroidery and natural vegetable tanning.
+                    </p>
+
+                    <!-- Artisan Hub Accordion / Selector -->
+                    <div class="space-y-3" id="hub-accordion">
+                        <div class="hub-item p-4 rounded-xl glass-panel border border-tiziri-sand cursor-pointer transition-all hover:border-tiziri-terracotta" onclick="selectHub('casablanca')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-serif text-lg font-semibold text-tiziri-brown"><i class="fa-solid fa-location-dot text-tiziri-terracotta mr-2"></i> Casablanca</span>
+                                <span class="text-xs uppercase tracking-wider font-semibold text-tiziri-terracotta">Tailoring & Apparel HQ</span>
+                            </div>
+                            <p class="text-xs text-tiziri-brown/70 mt-2">Modern jacket structuring, precision linen assembly, modern kaftan cuts.</p>
+                        </div>
+
+                        <div class="hub-item p-4 rounded-xl glass-panel border border-tiziri-sand cursor-pointer transition-all hover:border-tiziri-terracotta" onclick="selectHub('marrakech')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-serif text-lg font-semibold text-tiziri-brown"><i class="fa-solid fa-location-dot text-tiziri-terracotta mr-2"></i> Marrakech</span>
+                                <span class="text-xs uppercase tracking-wider font-semibold text-tiziri-terracotta">Leather Atelier</span>
+                            </div>
+                            <p class="text-xs text-tiziri-brown/70 mt-2">Handcrafted travel weekenders, vegetable-tanned full grain leather babouches.</p>
+                        </div>
+
+                        <div class="hub-item p-4 rounded-xl glass-panel border border-tiziri-sand cursor-pointer transition-all hover:border-tiziri-terracotta" onclick="selectHub('fez')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-serif text-lg font-semibold text-tiziri-brown"><i class="fa-solid fa-location-dot text-tiziri-terracotta mr-2"></i> Fez</span>
+                                <span class="text-xs uppercase tracking-wider font-semibold text-tiziri-terracotta">Embroidery & Guilds</span>
+                            </div>
+                            <p class="text-xs text-tiziri-brown/70 mt-2">Precision geometric threadwork, brass jewelry casting, and traditional trim weaving.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Visual Material Cards -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                        <div class="spotlight-overlay"></div>
+                        <div class="w-12 h-12 rounded-full bg-tiziri-terracotta/10 flex items-center justify-center text-tiziri-terracotta text-xl mb-4">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold mb-2 text-tiziri-brown">Natural Linen & Cotton</h3>
+                        <p class="text-xs text-tiziri-brown/80 leading-relaxed">
+                            Breathable, organic European-standard linen and long-staple cotton sourced locally and milled for maximum comfort in summer or autumn layering.
+                        </p>
+                    </div>
+
+                    <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                        <div class="spotlight-overlay"></div>
+                        <div class="w-12 h-12 rounded-full bg-tiziri-brown/10 flex items-center justify-center text-tiziri-brown text-xl mb-4">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold mb-2 text-tiziri-brown">Vegetable-Tanned Leather</h3>
+                        <p class="text-xs text-tiziri-brown/80 leading-relaxed">
+                            Tanned using traditional organic plant extracts (mimosa, bark). Chromium-free, rich patina development over time with zero harsh chemicals.
+                        </p>
+                    </div>
+
+                    <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                        <div class="spotlight-overlay"></div>
+                        <div class="w-12 h-12 rounded-full bg-tiziri-indigo/10 flex items-center justify-center text-tiziri-indigo text-xl mb-4">
+                            <i class="fa-solid fa-scissors"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold mb-2 text-tiziri-brown">Limited Small Runs</h3>
+                        <p class="text-xs text-tiziri-brown/80 leading-relaxed">
+                            Strict production caps per collection safeguard artisan craftsmanship, prevent unsold overstock, and ensure true exclusivity for every customer.
+                        </p>
+                    </div>
+
+                    <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                        <div class="spotlight-overlay"></div>
+                        <div class="w-12 h-12 rounded-full bg-tiziri-gold/10 flex items-center justify-center text-tiziri-gold text-xl mb-4">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold mb-2 text-tiziri-brown">Geometric Amazigh Symbols</h3>
+                        <p class="text-xs text-tiziri-brown/80 leading-relaxed">
+                            Subtle abstract motifs inspired by traditional Atlas geometry and riad architecture—never folkloric, always modern and understated.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Staged International Trade & Expansion Strategy -->
+    <section id="strategy" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs uppercase tracking-[0.3em] text-tiziri-terracotta font-semibold block mb-2">Market Expansion Strategy</span>
+            <h2 class="font-serif text-4xl sm:text-5xl font-normal text-tiziri-black mb-4">
+                Staged European Market Entry
+            </h2>
+            <p class="text-sm sm:text-base text-tiziri-brown/80">
+                A disciplined 3-phase rollout prioritizing high diaspora concentration, shared linguistic infrastructure, and low direct logistics friction before scaling into Northern Europe.
+            </p>
+        </div>
+
+        <!-- Interactive Phase Switcher -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            
+            <!-- Phase 1: France -->
+            <div id="phase-card-france" class="tilt-card p-6 rounded-2xl border-2 border-tiziri-terracotta glass-panel relative cursor-pointer" onclick="setActiveMarket('france')">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-[10px] font-bold uppercase tracking-widest bg-tiziri-terracotta text-tiziri-cream px-3 py-1 rounded-full">Phase 1 • Launch Target</span>
+                    <i class="fa-solid fa-flag text-2xl text-tiziri-terracotta"></i>
+                </div>
+                <h3 class="font-serif text-3xl font-semibold mb-2 text-tiziri-black">France</h3>
+                <p class="text-xs font-semibold uppercase tracking-wider text-tiziri-terracotta mb-4">Paris • Lyon • Marseille • Toulouse</p>
+                <ul class="text-xs text-tiziri-brown/80 space-y-2 mb-4">
+                    <li><i class="fa-solid fa-check text-tiziri-terracotta mr-2"></i> 830,000+ Moroccan Diaspora in EU</li>
+                    <li><i class="fa-solid fa-check text-tiziri-terracotta mr-2"></i> Shared Business & French Language</li>
+                    <li><i class="fa-solid fa-check text-tiziri-terracotta mr-2"></i> 3.5h Direct Air Freight (CMN ➔ CDG)</li>
+                    <li><i class="fa-solid fa-check text-tiziri-terracotta mr-2"></i> French 3PL Warehouse & Fulfillment Hub</li>
+                </ul>
+            </div>
+
+            <!-- Phase 2: Spain -->
+            <div id="phase-card-spain" class="tilt-card p-6 rounded-2xl border border-tiziri-sand glass-panel relative cursor-pointer hover:border-tiziri-terracotta/60" onclick="setActiveMarket('spain')">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-[10px] font-bold uppercase tracking-widest bg-tiziri-sand text-tiziri-brown px-3 py-1 rounded-full">Phase 2 • Expansion</span>
+                    <i class="fa-solid fa-truck-fast text-2xl text-tiziri-brown/60"></i>
+                </div>
+                <h3 class="font-serif text-3xl font-semibold mb-2 text-tiziri-black">Spain</h3>
+                <p class="text-xs font-semibold uppercase tracking-wider text-tiziri-brown/70 mb-4">Barcelona • Madrid • Valencia</p>
+                <ul class="text-xs text-tiziri-brown/80 space-y-2 mb-4">
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> Low-Cost Logistics Gateway</li>
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> Tanger Med ➔ Algeciras Ferry Corridor</li>
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> 2-4 Days Road Delivery Time</li>
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> Pop-Up Retail Strategy in Barcelona</li>
+                </ul>
+            </div>
+
+            <!-- Phase 3: Germany -->
+            <div id="phase-card-germany" class="tilt-card p-6 rounded-2xl border border-tiziri-sand glass-panel relative cursor-pointer hover:border-tiziri-terracotta/60" onclick="setActiveMarket('germany')">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-[10px] font-bold uppercase tracking-widest bg-tiziri-sand text-tiziri-brown px-3 py-1 rounded-full">Phase 3 • High Volume</span>
+                    <i class="fa-solid fa-chart-line text-2xl text-tiziri-brown/60"></i>
+                </div>
+                <h3 class="font-serif text-3xl font-semibold mb-2 text-tiziri-black">Germany</h3>
+                <p class="text-xs font-semibold uppercase tracking-wider text-tiziri-brown/70 mb-4">Berlin • Munich • Frankfurt</p>
+                <ul class="text-xs text-tiziri-brown/80 space-y-2 mb-4">
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> Highest EU Purchasing Power</li>
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> Demands Local Returns Hub</li>
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> Klarna & Open Invoice Integration</li>
+                    <li><i class="fa-solid fa-check text-tiziri-brown/60 mr-2"></i> Strict REACH Chemical Compliance</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Trade & Logistics Compliance Matrix Panel -->
+        <div class="p-8 rounded-3xl glass-panel border border-tiziri-sand/60 shadow-xl">
+            <h3 class="font-serif text-2xl font-semibold text-tiziri-black mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-boxes-packing text-tiziri-terracotta"></i>
+                International Trade & Customs Framework (EU — Morocco)
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="p-4 rounded-xl bg-tiziri-cream border border-tiziri-sand/40">
+                    <span class="text-[10px] font-bold uppercase text-tiziri-terracotta tracking-wider block mb-1">Customs Duty</span>
+                    <h4 class="font-semibold text-sm text-tiziri-brown mb-2">0% Tariff Exemption</h4>
+                    <p class="text-xs text-tiziri-brown/70">
+                        Under EU-Morocco Free Trade Agreement. EUR.1 origin certificate verifies fabric processing and craftsmanship in Morocco.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-tiziri-cream border border-tiziri-sand/40">
+                    <span class="text-[10px] font-bold uppercase text-tiziri-terracotta tracking-wider block mb-1">EU Import Taxes</span>
+                    <h4 class="font-semibold text-sm text-tiziri-brown mb-2">IOSS VAT Clearance</h4>
+                    <p class="text-xs text-tiziri-brown/70">
+                        Import One-Stop Shop (IOSS) collects French 20% / Spanish 21% / German 19% VAT seamlessly at checkout with zero customs delays.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-tiziri-cream border border-tiziri-sand/40">
+                    <span class="text-[10px] font-bold uppercase text-tiziri-terracotta tracking-wider block mb-1">Safety & Standards</span>
+                    <h4 class="font-semibold text-sm text-tiziri-brown mb-2">REACH & Labelling</h4>
+                    <p class="text-xs text-tiziri-brown/70">
+                        Strict compliance for azo-dyes, heavy metals in jewelry, fiber composition tags in French, Spanish, and German.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-tiziri-cream border border-tiziri-sand/40">
+                    <span class="text-[10px] font-bold uppercase text-tiziri-terracotta tracking-wider block mb-1">Logistics Corridor</span>
+                    <h4 class="font-semibold text-sm text-tiziri-brown mb-2">French 3PL Hub</h4>
+                    <p class="text-xs text-tiziri-brown/70">
+                        Air freight from Casablanca to Paris hub for 1-3 day last-mile delivery across EU, automated returns processing.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Unit Economics & Pricing Model (Interactive Case Study) -->
+    <section id="economics" class="py-20 bg-tiziri-brown text-tiziri-cream relative overflow-hidden">
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5">
+                    <span class="text-xs uppercase tracking-[0.3em] text-tiziri-sand font-semibold block mb-2">Interactive Financial Model</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl font-normal mb-6 text-tiziri-cream">
+                        Unit Economics Case Study: <br>
+                        <span class="italic text-tiziri-sand">The Atlas Jacket</span>
+                    </h2>
+                    <p class="text-sm text-tiziri-sandlight/80 leading-relaxed mb-6">
+                        Examine TIZIRI’s financial architecture. Adjust selling price, batch quantity, or customer acquisition cost (CAC) in real time to observe landed cost, EU VAT deduction, and net margin performance.
+                    </p>
+
+                    <!-- Interactive Control Sliders -->
+                    <div class="space-y-6 bg-tiziri-black/40 p-6 rounded-2xl border border-tiziri-sand/20">
+                        
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold uppercase tracking-wider mb-2">
+                                <span>Selling Price (EUR inc. VAT):</span>
+                                <span id="price-slider-val" class="text-tiziri-gold font-bold text-sm">€190</span>
+                            </div>
+                            <input type="range" id="price-slider" min="140" max="300" step="5" value="190" class="w-full accent-tiziri-terracotta cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold uppercase tracking-wider mb-2">
+                                <span>Batch Order Quantity:</span>
+                                <span id="qty-slider-val" class="text-tiziri-gold font-bold text-sm">250 units</span>
+                            </div>
+                            <input type="range" id="qty-slider" min="50" max="1000" step="50" value="250" class="w-full accent-tiziri-terracotta cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold uppercase tracking-wider mb-2">
+                                <span>Marketing CAC per Order:</span>
+                                <span id="cac-slider-val" class="text-tiziri-gold font-bold text-sm">€25.00</span>
+                            </div>
+                            <input type="range" id="cac-slider" min="10" max="50" step="1" value="25" class="w-full accent-tiziri-terracotta cursor-pointer">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Financial Breakdown Matrix -->
+                <div class="lg:col-span-7">
+                    
+                    <div class="p-8 rounded-3xl glass-panel-dark border border-tiziri-sand/20 text-tiziri-cream shadow-2xl">
+                        
+                        <!-- Top KPI Row -->
+                        <div class="grid grid-cols-3 gap-4 pb-6 border-b border-tiziri-sand/20 text-center">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-tiziri-sandlight/60 block">Net Price (ex. VAT)</span>
+                                <span id="calc-net-price" class="font-serif text-2xl sm:text-3xl font-semibold text-tiziri-cream">€158.33</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-tiziri-sandlight/60 block">Total Unit Cost</span>
+                                <span id="calc-total-cost" class="font-serif text-2xl sm:text-3xl font-semibold text-tiziri-terracotta">€104.30</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-tiziri-sandlight/60 block">Expected Profit</span>
+                                <span id="calc-net-profit" class="font-serif text-2xl sm:text-3xl font-bold text-tiziri-gold">€54.03</span>
+                            </div>
+                        </div>
+
+                        <!-- Cost Item Breakdown Table -->
+                        <div class="mt-6 space-y-3 text-xs">
+                            
+                            <div class="flex justify-between items-center py-1.5 border-b border-tiziri-sand/10">
+                                <span class="text-tiziri-sandlight/80 flex items-center gap-2">
+                                    <i class="fa-solid fa-shirt text-tiziri-sand"></i> Production Cost (Fabric, Labor, Embroidery)
+                                </span>
+                                <span id="cost-production" class="font-semibold text-tiziri-cream">€55.00</span>
+                            </div>
+
+                            <div class="flex justify-between items-center py-1.5 border-b border-tiziri-sand/10">
+                                <span class="text-tiziri-sandlight/80 flex items-center gap-2">
+                                    <i class="fa-solid fa-box text-tiziri-sand"></i> Eco Packaging & Branded Unboxing
+                                </span>
+                                <span id="cost-packaging" class="font-semibold text-tiziri-cream">€3.00</span>
+                            </div>
+
+                            <div class="flex justify-between items-center py-1.5 border-b border-tiziri-sand/10">
+                                <span class="text-tiziri-sandlight/80 flex items-center gap-2">
+                                    <i class="fa-solid fa-plane-departure text-tiziri-sand"></i> Air Freight & Last-Mile Delivery
+                                </span>
+                                <span id="cost-transport" class="font-semibold text-tiziri-cream">€8.00</span>
+                            </div>
+
+                            <div class="flex justify-between items-center py-1.5 border-b border-tiziri-sand/10">
+                                <span class="text-tiziri-sandlight/80 flex items-center gap-2">
+                                    <i class="fa-solid fa-passport text-tiziri-sand"></i> Customs Duty (0% FTA) + Broker Fees
+                                </span>
+                                <span id="cost-customs" class="font-semibold text-tiziri-cream">€1.50</span>
+                            </div>
+
+                            <div class="flex justify-between items-center py-1.5 border-b border-tiziri-sand/10">
+                                <span class="text-tiziri-sandlight/80 flex items-center gap-2">
+                                    <i class="fa-solid fa-credit-card text-tiziri-sand"></i> Payment Processing (Stripe/PayPal)
+                                </span>
+                                <span id="cost-payment" class="font-semibold text-tiziri-cream">€5.80</span>
+                            </div>
+
+                            <div class="flex justify-between items-center py-1.5 border-b border-tiziri-sand/10">
+                                <span class="text-tiziri-sandlight/80 flex items-center gap-2">
+                                    <i class="fa-solid fa-rotate-left text-tiziri-sand"></i> Provision for EU Returns Handling
+                                </span>
+                                <span id="cost-returns" class="font-semibold text-tiziri-cream">€6.00</span>
+                            </div>
+
+                            <div class="flex justify-between items-center py-1.5 border-b border-tiziri-sand/10">
+                                <span class="text-tiziri-sandlight/80 flex items-center gap-2">
+                                    <i class="fa-solid fa-bullhorn text-tiziri-sand"></i> Marketing Acquisition (Meta / TikTok Ads)
+                                </span>
+                                <span id="cost-marketing" class="font-semibold text-tiziri-cream">€25.00</span>
+                            </div>
+
+                        </div>
+
+                        <!-- Progress / Profit Bar -->
+                        <div class="mt-8">
+                            <div class="flex justify-between text-xs font-semibold uppercase tracking-wider mb-2">
+                                <span>Net Profit Margin (ex-VAT)</span>
+                                <span id="margin-percent-val" class="text-tiziri-gold font-bold">34.1%</span>
+                            </div>
+                            <div class="w-full bg-tiziri-black/80 rounded-full h-3 overflow-hidden p-0.5 border border-tiziri-sand/30">
+                                <div id="margin-progress-bar" class="bg-gradient-to-r from-tiziri-terracotta via-tiziri-sand to-tiziri-gold h-full rounded-full transition-all duration-300" style="width: 34.1%;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Risk Management & Solutions Hub -->
+    <section id="risks" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs uppercase tracking-[0.3em] text-tiziri-terracotta font-semibold block mb-2">Risk Mitigation Framework</span>
+            <h2 class="font-serif text-4xl sm:text-5xl font-normal text-tiziri-black mb-4">
+                Identified Risks & Strategic Solutions
+            </h2>
+            <p class="text-sm sm:text-base text-tiziri-brown/80">
+                Proactive operational controls safeguard TIZIRI against exchange rate volatility, regulatory friction, transport delays, and return rates.
+            </p>
+        </div>
+
+        <!-- Filterable Risk Category Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center gap-3 mb-4 text-tiziri-terracotta">
+                    <i class="fa-solid fa-coins text-2xl"></i>
+                    <h3 class="font-serif text-2xl font-semibold text-tiziri-brown">Exchange Rate Fluctuations</h3>
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div class="bg-red-50 text-red-900 p-2.5 rounded-lg border border-red-200">
+                        <strong>Risk:</strong> Costs in Moroccan Dirham (MAD), revenues in Euro (EUR).
+                    </div>
+                    <div class="bg-emerald-50 text-emerald-900 p-2.5 rounded-lg border border-emerald-200">
+                        <strong>Solution:</strong> Euro multi-currency accounts in Morocco, forward contracts for raw material purchases, natural hedge.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center gap-3 mb-4 text-tiziri-terracotta">
+                    <i class="fa-solid fa-scale-balanced text-2xl"></i>
+                    <h3 class="font-serif text-2xl font-semibold text-tiziri-brown">Customs & Origin Rules</h3>
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div class="bg-red-50 text-red-900 p-2.5 rounded-lg border border-red-200">
+                        <strong>Risk:</strong> Disallowance of 0% FTA duty if fabric origin isn't properly documented.
+                    </div>
+                    <div class="bg-emerald-50 text-emerald-900 p-2.5 rounded-lg border border-emerald-200">
+                        <strong>Solution:</strong> Licensed customs broker, complete EUR.1 origin tracking from thread/spinning stage, IOSS VAT registration.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center gap-3 mb-4 text-tiziri-terracotta">
+                    <i class="fa-solid fa-copyright text-2xl"></i>
+                    <h3 class="font-serif text-2xl font-semibold text-tiziri-brown">IP Protection & Fast Fashion</h3>
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div class="bg-red-50 text-red-900 p-2.5 rounded-lg border border-red-200">
+                        <strong>Risk:</strong> Design copying by high-street fast fashion retailers.
+                    </div>
+                    <div class="bg-emerald-50 text-emerald-900 p-2.5 rounded-lg border border-emerald-200">
+                        <strong>Solution:</strong> EU Intellectual Property trademark registration (EUIPO), small limited batch releases, focus on story & craft authenticity.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center gap-3 mb-4 text-tiziri-terracotta">
+                    <i class="fa-solid fa-truck-ramp-box text-2xl"></i>
+                    <h3 class="font-serif text-2xl font-semibold text-tiziri-brown">Logistics & Parcel Delays</h3>
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div class="bg-red-50 text-red-900 p-2.5 rounded-lg border border-red-200">
+                        <strong>Risk:</strong> Customs checks or air carrier delays during peak fashion seasons.
+                    </div>
+                    <div class="bg-emerald-50 text-emerald-900 p-2.5 rounded-lg border border-emerald-200">
+                        <strong>Solution:</strong> Dual courier strategy (DHL/FedEx + French 3PL hub), insured consignments, safety buffer inventory held near Paris.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center gap-3 mb-4 text-tiziri-terracotta">
+                    <i class="fa-solid fa-box-archive text-2xl"></i>
+                    <h3 class="font-serif text-2xl font-semibold text-tiziri-brown">High German Return Rates</h3>
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div class="bg-red-50 text-red-900 p-2.5 rounded-lg border border-red-200">
+                        <strong>Risk:</strong> E-commerce return rates in Germany reach 40-50% for fashion.
+                    </div>
+                    <div class="bg-emerald-50 text-emerald-900 p-2.5 rounded-lg border border-emerald-200">
+                        <strong>Solution:</strong> Highly detailed sizing guides, fit videos, local EU returns processing hub, quick resale inspection workflow.
+                    </div>
+                </div>
+            </div>
+
+            <div class="tilt-card p-6 rounded-2xl glass-panel border border-tiziri-sand/50 shadow-md">
+                <div class="spotlight-overlay"></div>
+                <div class="flex items-center gap-3 mb-4 text-tiziri-terracotta">
+                    <i class="fa-solid fa-earth-europe text-2xl"></i>
+                    <h3 class="font-serif text-2xl font-semibold text-tiziri-brown">Macroeconomic Slowdowns</h3>
+                </div>
+                <div class="space-y-3 text-xs">
+                    <div class="bg-red-50 text-red-900 p-2.5 rounded-lg border border-red-200">
+                        <strong>Risk:</strong> European consumer spending contraction or inflation spikes.
+                    </div>
+                    <div class="bg-emerald-50 text-emerald-900 p-2.5 rounded-lg border border-emerald-200">
+                        <strong>Solution:</strong> Geographically diversified sales across France, Spain, Germany, lean on-demand batch production cycles.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-tiziri-black text-tiziri-cream pt-16 pb-12 border-t border-tiziri-sand/20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
+                
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 rounded-full border border-tiziri-terracotta/60 flex items-center justify-center bg-tiziri-brown">
+                            <svg class="w-5 h-5 text-tiziri-terracotta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 3C7 3 4 7 4 12V21H20V12C20 7 17 3 12 3Z"/>
+                            </svg>
+                        </div>
+                        <span class="font-serif text-2xl tracking-[0.2em] font-semibold">TIZIRI</span>
+                    </div>
+                    <p class="text-xs text-tiziri-sandlight/70 leading-relaxed mb-6 max-w-sm">
+                        "Moroccan soul, modern lines." Contemporary luxury fashion bridging authentic North African heritage with modern European aesthetic standards.
+                    </p>
+                    <div class="flex gap-4 text-tiziri-sand hover:text-tiziri-terracotta">
+                        <a href="#" class="p-2 rounded-full bg-tiziri-brown hover:bg-tiziri-terracotta hover:text-tiziri-cream transition-colors"><i class="fa-brands fa-instagram text-base"></i></a>
+                        <a href="#" class="p-2 rounded-full bg-tiziri-brown hover:bg-tiziri-terracotta hover:text-tiziri-cream transition-colors"><i class="fa-brands fa-tiktok text-base"></i></a>
+                        <a href="#" class="p-2 rounded-full bg-tiziri-brown hover:bg-tiziri-terracotta hover:text-tiziri-cream transition-colors"><i class="fa-brands fa-linkedin text-base"></i></a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3 text-xs space-y-2">
+                    <h4 class="font-serif text-lg font-semibold text-tiziri-cream mb-3">Project Navigation</h4>
+                    <p><a href="#collection" class="hover:text-tiziri-sand transition-colors">Collection 01 'Marrakech'</a></p>
+                    <p><a href="#story" class="hover:text-tiziri-sand transition-colors">Craftsmanship & Hubs</a></p>
+                    <p><a href="#strategy" class="hover:text-tiziri-sand transition-colors">EU Expansion Strategy</a></p>
+                    <p><a href="#economics" class="hover:text-tiziri-sand transition-colors">Atlas Jacket Financials</a></p>
+                    <p><a href="#risks" class="hover:text-tiziri-sand transition-colors">Risk Mitigation Matrix</a></p>
+                </div>
+
+                <div class="md:col-span-4">
+                    <h4 class="font-serif text-lg font-semibold text-tiziri-cream mb-3">Join The Journey</h4>
+                    <p class="text-xs text-tiziri-sandlight/70 mb-4">Subscribe for private launch previews and international retail pop-up announcements in Paris & Barcelona.</p>
+                    <form onsubmit="event.preventDefault(); showToast('Subscribed to TIZIRI Newsletter!');" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email address" required class="bg-tiziri-brown border border-tiziri-sand/30 rounded-full px-4 py-2 text-xs text-tiziri-cream focus:outline-none focus:border-tiziri-terracotta flex-1">
+                        <button type="submit" class="px-5 py-2 rounded-full bg-tiziri-terracotta text-tiziri-cream text-xs font-semibold hover:bg-tiziri-terracottadark transition-colors">Join</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-tiziri-sand/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-tiziri-sandlight/50">
+                <p>© 2026 TIZIRI Fashion House. International Trade Business Plan Project.</p>
+                <p class="mt-2 sm:mt-0">Casablanca • Paris • Barcelona • Berlin</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Quick View Product Modal with Inspection Zoom Lens -->
+    <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-tiziri-cream rounded-3xl max-w-4xl w-full p-6 sm:p-8 relative overflow-hidden border border-tiziri-sand shadow-2xl transform scale-95 transition-transform duration-300" id="quickview-content">
+            <button onclick="closeQuickViewModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-tiziri-sandlight hover:bg-tiziri-sand text-tiziri-brown flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                
+                <!-- Image Container with Interactive Magnifier Zoom Lens -->
+                <div class="magnifier-container rounded-2xl overflow-hidden bg-tiziri-sandlight/50 border border-tiziri-sand relative aspect-[3/4]" id="modal-img-container">
+                    <img id="modal-product-img" src="" alt="Product Detail" class="w-full h-full object-cover">
+                    <!-- Zoom Lens Overlay Element -->
+                    <div id="modal-magnifier-lens" class="magnifier-lens"></div>
+                    <div class="absolute bottom-3 left-3 bg-tiziri-black/70 text-tiziri-cream text-[10px] px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Hover cursor to inspect fabric detail
+                    </div>
+                </div>
+
+                <!-- Product Info & Actions -->
+                <div>
+                    <span id="modal-product-tag" data-i18n-skip class="text-[10px] uppercase font-bold tracking-widest text-tiziri-terracotta bg-tiziri-sandlight px-3 py-1 rounded-full inline-block mb-3">Hero Item</span>
+                    <h3 id="modal-product-title" data-i18n-skip class="font-serif text-3xl font-semibold text-tiziri-black mb-2">The Atlas Jacket</h3>
+                    <div id="modal-product-price" class="font-serif text-2xl font-bold text-tiziri-brown mb-4">€190</div>
+                    
+                    <p id="modal-product-desc" data-i18n-skip class="text-xs text-tiziri-brown/80 leading-relaxed mb-6">
+                        Oversized structured jacket with subtle geometric embroidery along the lapels and cuffs. Reinterprets Atlas mountain motifs in modern European tailoring.
+                    </p>
+
+                    <!-- Provenance Notes -->
+                    <div class="bg-tiziri-sandlight/60 p-3.5 rounded-xl border border-tiziri-sand/50 text-xs mb-6 space-y-1">
+                        <div><strong>Craft Hub:</strong> <span id="modal-product-hub" data-i18n-skip>Casablanca & Fez Atelier</span></div>
+                        <div><strong>Materials:</strong> <span id="modal-product-mats" data-i18n-skip>100% Wool Outer, Silk-Touch Lining</span></div>
+                    </div>
+
+                    <!-- Size / Line Selector (adapts to the product: clothing sizes, shoe sizes, jewellery lines or one size) -->
+                    <div class="mb-6" data-i18n-skip>
+                        <label id="modal-option-label" class="text-xs uppercase font-semibold text-tiziri-brown tracking-wider block mb-2">Select Size</label>
+                        <div class="flex flex-wrap gap-2" id="size-options"></div>
+                        <p id="modal-variant-note" class="text-[11px] text-tiziri-brown/70 mt-2 hidden"></p>
+                    </div>
+
+                    <!-- Add to Bag Button -->
+                    <button id="modal-add-btn" class="w-full py-4 rounded-full bg-tiziri-terracotta text-tiziri-cream font-semibold text-xs tracking-[0.2em] uppercase hover:bg-tiziri-terracottadark transition-all shadow-lg flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> Add to Shopping Bag
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-Over Shopping Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-tiziri-cream w-full max-w-md h-full shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300" id="cart-drawer-content">
+            
+            <!-- Cart Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-tiziri-sand">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-tiziri-terracotta text-xl"></i>
+                    <h3 class="font-serif text-2xl font-semibold text-tiziri-black">Your Bag</h3>
+                </div>
+                <button onclick="toggleCartDrawer()" class="p-2 text-tiziri-brown hover:text-tiziri-terracotta">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items Container -->
+            <div id="cart-items-list" data-i18n-skip class="flex-1 overflow-y-auto py-6 space-y-4">
+                <!-- Injected dynamically via JavaScript -->
+            </div>
+
+            <!-- Cart Summary Footer -->
+            <div class="pt-4 border-t border-tiziri-sand space-y-3 text-xs">
+                <div class="flex justify-between text-tiziri-brown/80">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal" class="font-semibold text-tiziri-brown">€0.00</span>
+                </div>
+                <div class="flex justify-between text-tiziri-brown/80" data-i18n-skip>
+                    <span id="cart-shipping-label">Estimated Shipping (EU Hub)</span>
+                    <span id="cart-shipping-val" class="font-semibold text-emerald-700">Calculated at checkout</span>
+                </div>
+                <!-- Free delivery progress (Morocco) -->
+                <div id="free-ship-box" data-i18n-skip class="hidden">
+                    <p id="free-ship-text" class="text-[11px] text-tiziri-brown/70 mb-1.5"></p>
+                    <div class="w-full h-1.5 rounded-full bg-tiziri-sandlight overflow-hidden">
+                        <div id="free-ship-bar" class="h-full bg-tiziri-terracotta rounded-full transition-all duration-300" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="flex justify-between text-tiziri-brown text-base font-bold pt-2 border-t border-tiziri-sand/40">
+                    <span>Total (inc. VAT)</span>
+                    <span id="cart-total" class="text-tiziri-terracotta">€0.00</span>
+                </div>
+
+                <button id="checkout-btn" data-i18n-skip onclick="checkoutSimulation()" class="w-full py-4 rounded-full bg-tiziri-terracotta text-tiziri-cream font-semibold text-xs tracking-[0.2em] uppercase hover:bg-tiziri-terracottadark transition-all shadow-md mt-2">
+                    Proceed to Direct EU Checkout
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Business Plan Full Executive Summary Modal -->
+    <div id="business-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-tiziri-cream rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative max-h-[85vh] overflow-y-auto border border-tiziri-sand shadow-2xl">
+            <button onclick="closeBusinessReportModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-tiziri-sandlight hover:bg-tiziri-sand text-tiziri-brown flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <span class="text-xs uppercase font-bold tracking-widest text-tiziri-terracotta block mb-1">Executive Report & Briefing</span>
+            <h2 class="font-serif text-3xl font-semibold text-tiziri-black mb-4">TIZIRI — International Trade Business Project</h2>
+
+            <div class="space-y-4 text-xs text-tiziri-brown/90 leading-relaxed border-t border-tiziri-sand pt-4">
+                <p><strong>Brand Identity:</strong> TIZIRI ("Moonlight" in Amazigh) | <em>"Moroccan soul, modern lines."</em></p>
+                <p><strong>Strategic Thesis:</strong> Contemporary fashion brand combining 80-90% modern European design silhouettes with 10-20% Moroccan craft identity. Target audience: 18 to 35-year-old urban consumers and North African diaspora seeking distinctive, premium storytelling apparel.</p>
+                <p><strong>Market Entry Priority:</strong> 1st France (largest diaspora, shared French language, 3.5h direct logistics), 2nd Spain (low-cost Tanger Med sea-road gateway), 3rd Germany (high purchasing power, strict return/REACH compliance).</p>
+                <p><strong>Operational Architecture:</strong> Direct-to-consumer e-commerce from Casablanca, backed by a 3PL logistics partner in Paris for fast EU delivery & local returns, duty-free clearance under EU-Morocco FTA with EUR.1 origin certification, and automated IOSS VAT collection.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* =====================================================================
+           LANGUAGE PACK — the country/currency selector now also switches
+           the language. Keys are the original English texts of the page;
+           English stays the source, FR / ES / DE are swapped in on demand.
+           ===================================================================== */
+        const I18N = {
+            // Header & navigation
+            "Heritage & Craft": { fr: "Héritage & Savoir-faire", es: "Herencia y Artesanía", de: "Erbe & Handwerk" },
+            "Global Strategy": { fr: "Stratégie mondiale", es: "Estrategia global", de: "Globale Strategie" },
+            "Financial Model": { fr: "Modèle financier", es: "Modelo financiero", de: "Finanzmodell" },
+            "Risk Matrix": { fr: "Matrice des risques", es: "Matriz de riesgos", de: "Risikomatrix" },
+            "BAG": { fr: "PANIER", es: "BOLSA", de: "TASCHE" },
+            "Collection 01": { es: "Colección 01", de: "Kollektion 01" },
+
+            // Hero
+            "International Expansion Plan • Morocco ➔ EU": { fr: "Plan d'expansion internationale • Maroc ➔ UE", es: "Plan de expansión internacional • Marruecos ➔ UE", de: "Internationaler Expansionsplan • Marokko ➔ EU" },
+            "Moroccan Soul,": { fr: "Âme marocaine,", es: "Alma marroquí,", de: "Marokkanische Seele," },
+            "Modern Lines.": { fr: "Lignes modernes.", es: "Líneas modernas.", de: "Moderne Linien." },
+            "Explore Collection 01": { fr: "Découvrir la Collection 01", es: "Explorar la Colección 01", de: "Kollektion 01 entdecken" },
+            "View Business Plan": { fr: "Voir le business plan", es: "Ver plan de negocio", de: "Businessplan ansehen" },
+            "Modern Design": { fr: "Design moderne", es: "Diseño moderno", de: "Modernes Design" },
+            "Moroccan Identity": { fr: "Identité marocaine", es: "Identidad marroquí", de: "Marokkanische Identität" },
+            "3 EU": { fr: "3 UE", es: "3 UE" },
+            "Target Markets": { fr: "Marchés cibles", es: "Mercados objetivo", de: "Zielmärkte" },
+            "0% Tariff": { fr: "0 % de droits", es: "0 % arancel", de: "0 % Zoll" },
+            "EU FTA Exemption": { fr: "Exonération ALE UE", es: "Exención TLC UE", de: "EU-FHA-Befreiung" },
+
+            // Collection
+            "Launch Range": { fr: "Gamme de lancement", es: "Gama de lanzamiento", de: "Launch-Kollektion" },
+            "All Items": { fr: "Tout voir", es: "Todo", de: "Alle Artikel" },
+            "Apparel": { fr: "Prêt-à-porter", es: "Ropa", de: "Bekleidung" },
+            "Leather Goods": { fr: "Maroquinerie", es: "Marroquinería", de: "Lederwaren" },
+            "Leather": { fr: "Cuir", es: "Piel", de: "Leder" },
+            "Accessories": { fr: "Accessoires", es: "Accesorios", de: "Accessoires" },
+            "Jewelry": { fr: "Bijoux", es: "Joyería", de: "Schmuck" },
+
+            // Story
+            "Authentic Craft & Provenance": { fr: "Artisanat authentique & provenance", es: "Artesanía auténtica y procedencia", de: "Authentisches Handwerk & Herkunft" },
+            "Rooted in Heritage,": { fr: "Ancrée dans l'héritage,", es: "Arraigada en la herencia,", de: "Verwurzelt im Erbe," },
+            "Refined for the World.": { fr: "Raffinée pour le monde.", es: "Refinada para el mundo.", de: "Verfeinert für die Welt." },
+            "TIZIRI resolves a common market dilemma: fashion enthusiasts who love North African craftsmanship often find either souvenir-style costume wear or generic global fast fashion.": {
+                fr: "TIZIRI résout un dilemme courant : les passionnés de mode qui aiment l'artisanat nord-africain ne trouvent souvent que des tenues folkloriques façon souvenir ou une fast fashion mondiale générique.",
+                es: "TIZIRI resuelve un dilema habitual del mercado: quienes aman la artesanía norteafricana suelen encontrar solo ropa folclórica de souvenir o moda rápida global genérica.",
+                de: "TIZIRI löst ein typisches Marktdilemma: Wer nordafrikanisches Handwerk liebt, findet meist nur folkloristische Souvenirmode oder austauschbare globale Fast Fashion." },
+            "We produce in controlled, sustainable small batches across three historical artisan hubs in Morocco, combining modern precision tailoring with heritage geometric hand embroidery and natural vegetable tanning.": {
+                fr: "Nous produisons en petites séries maîtrisées et durables dans trois pôles artisanaux historiques du Maroc, alliant coupe moderne de précision, broderie géométrique traditionnelle à la main et tannage végétal naturel.",
+                es: "Producimos en pequeños lotes controlados y sostenibles en tres núcleos artesanales históricos de Marruecos, combinando sastrería moderna de precisión con bordado geométrico tradicional a mano y curtido vegetal natural.",
+                de: "Wir fertigen in kontrollierten, nachhaltigen Kleinserien in drei historischen Handwerkszentren Marokkos – moderne Präzisionsschneiderei, traditionelle geometrische Handstickerei und natürliche pflanzliche Gerbung." },
+            "Fez": { fr: "Fès", de: "Fès" },
+            "Tailoring & Apparel HQ": { fr: "Siège couture & prêt-à-porter", es: "Sede de sastrería y ropa", de: "Zentrale für Schneiderei & Bekleidung" },
+            "Modern jacket structuring, precision linen assembly, modern kaftan cuts.": { fr: "Structuration de vestes modernes, assemblage précis du lin, coupes de caftans modernes.", es: "Estructura de chaquetas modernas, confección precisa en lino, cortes de caftán modernos.", de: "Moderne Jackenkonstruktion, präzise Leinenverarbeitung, moderne Kaftan-Schnitte." },
+            "Leather Atelier": { fr: "Atelier du cuir", es: "Taller de piel", de: "Lederatelier" },
+            "Handcrafted travel weekenders, vegetable-tanned full grain leather babouches.": { fr: "Sacs de voyage faits main, babouches en cuir pleine fleur tanné végétal.", es: "Bolsos de viaje artesanales, babuchas de piel plena flor curtida al vegetal.", de: "Handgefertigte Reisetaschen, Babuschen aus pflanzlich gegerbtem Vollnarbenleder." },
+            "Embroidery & Guilds": { fr: "Broderie & corporations", es: "Bordado y gremios", de: "Stickerei & Zünfte" },
+            "Precision geometric threadwork, brass jewelry casting, and traditional trim weaving.": { fr: "Broderie géométrique de précision, fonte de bijoux en laiton et tissage de galons traditionnels.", es: "Bordado geométrico de precisión, fundición de joyas de latón y tejido tradicional de ribetes.", de: "Präzise geometrische Stickerei, Messingschmuckguss und traditionelle Bortenweberei." },
+            "Natural Linen & Cotton": { fr: "Lin & coton naturels", es: "Lino y algodón naturales", de: "Natürliches Leinen & Baumwolle" },
+            "Breathable, organic European-standard linen and long-staple cotton sourced locally and milled for maximum comfort in summer or autumn layering.": {
+                fr: "Lin biologique respirant aux normes européennes et coton à fibres longues, sourcés localement et tissés pour un confort maximal en été comme en superposition d'automne.",
+                es: "Lino orgánico transpirable con estándar europeo y algodón de fibra larga, de origen local y tejidos para el máximo confort en verano o en capas de otoño.",
+                de: "Atmungsaktives Bio-Leinen nach europäischem Standard und langstapelige Baumwolle, lokal bezogen und für maximalen Komfort im Sommer oder im Herbst-Layering gewebt." },
+            "Vegetable-Tanned Leather": { fr: "Cuir tanné végétal", es: "Piel curtida al vegetal", de: "Pflanzlich gegerbtes Leder" },
+            "Tanned using traditional organic plant extracts (mimosa, bark). Chromium-free, rich patina development over time with zero harsh chemicals.": {
+                fr: "Tanné avec des extraits végétaux traditionnels (mimosa, écorce). Sans chrome, il développe une belle patine avec le temps, sans produits chimiques agressifs.",
+                es: "Curtida con extractos vegetales tradicionales (mimosa, corteza). Sin cromo, desarrolla una rica pátina con el tiempo y sin químicos agresivos.",
+                de: "Mit traditionellen Pflanzenextrakten (Mimose, Rinde) gegerbt. Chromfrei, entwickelt mit der Zeit eine schöne Patina – ganz ohne aggressive Chemikalien." },
+            "Limited Small Runs": { fr: "Petites séries limitées", es: "Series cortas limitadas", de: "Limitierte Kleinserien" },
+            "Strict production caps per collection safeguard artisan craftsmanship, prevent unsold overstock, and ensure true exclusivity for every customer.": {
+                fr: "Des volumes plafonnés par collection préservent le savoir-faire artisanal, évitent les invendus et garantissent une vraie exclusivité à chaque client.",
+                es: "Límites estrictos de producción por colección protegen la artesanía, evitan excedentes sin vender y garantizan exclusividad real para cada cliente.",
+                de: "Strikte Produktionsobergrenzen pro Kollektion schützen das Handwerk, vermeiden Überbestände und garantieren echte Exklusivität für jeden Kunden." },
+            "Geometric Amazigh Symbols": { fr: "Symboles géométriques amazighs", es: "Símbolos geométricos amazigh", de: "Geometrische Amazigh-Symbole" },
+            "Subtle abstract motifs inspired by traditional Atlas geometry and riad architecture—never folkloric, always modern and understated.": {
+                fr: "Des motifs abstraits subtils inspirés de la géométrie de l'Atlas et de l'architecture des riads — jamais folkloriques, toujours modernes et sobres.",
+                es: "Motivos abstractos sutiles inspirados en la geometría tradicional del Atlas y la arquitectura de los riads: nunca folclóricos, siempre modernos y discretos.",
+                de: "Subtile abstrakte Motive, inspiriert von traditioneller Atlas-Geometrie und Riad-Architektur – nie folkloristisch, immer modern und zurückhaltend." },
+
+            // Strategy
+            "Market Expansion Strategy": { fr: "Stratégie d'expansion", es: "Estrategia de expansión", de: "Expansionsstrategie" },
+            "Staged European Market Entry": { fr: "Entrée progressive sur le marché européen", es: "Entrada escalonada en el mercado europeo", de: "Schrittweiser Eintritt in den europäischen Markt" },
+            "A disciplined 3-phase rollout prioritizing high diaspora concentration, shared linguistic infrastructure, and low direct logistics friction before scaling into Northern Europe.": {
+                fr: "Un déploiement rigoureux en 3 phases, qui privilégie les fortes concentrations de diaspora, une langue commune et une logistique directe simple avant de s'étendre à l'Europe du Nord.",
+                es: "Un despliegue disciplinado en 3 fases que prioriza una alta concentración de diáspora, una infraestructura lingüística compartida y una logística directa sencilla antes de escalar al norte de Europa.",
+                de: "Ein disziplinierter 3-Phasen-Rollout mit Fokus auf hohe Diaspora-Dichte, gemeinsame Sprache und reibungsarme Direktlogistik, bevor wir nach Nordeuropa skalieren." },
+            "Phase 1 • Launch Target": { fr: "Phase 1 • Cible de lancement", es: "Fase 1 • Objetivo de lanzamiento", de: "Phase 1 • Startmarkt" },
+            "France": { es: "Francia", de: "Frankreich" },
+            "830,000+ Moroccan Diaspora in EU": { fr: "830 000+ Marocains de la diaspora dans l'UE", es: "Más de 830.000 marroquíes de la diáspora en la UE", de: "830.000+ Marokkaner in der EU-Diaspora" },
+            "Shared Business & French Language": { fr: "Langue française & culture d'affaires communes", es: "Idioma francés y cultura empresarial compartidos", de: "Gemeinsame Geschäftskultur & französische Sprache" },
+            "3.5h Direct Air Freight (CMN ➔ CDG)": { fr: "3 h 30 de fret aérien direct (CMN ➔ CDG)", es: "3,5 h de carga aérea directa (CMN ➔ CDG)", de: "3,5 Std. Direkt-Luftfracht (CMN ➔ CDG)" },
+            "French 3PL Warehouse & Fulfillment Hub": { fr: "Entrepôt 3PL & hub logistique en France", es: "Almacén 3PL y centro logístico en Francia", de: "3PL-Lager & Fulfillment-Hub in Frankreich" },
+            "Phase 2 • Expansion": { es: "Fase 2 • Expansión" },
+            "Spain": { fr: "Espagne", es: "España", de: "Spanien" },
+            "Barcelona • Madrid • Valencia": { fr: "Barcelone • Madrid • Valence" },
+            "Low-Cost Logistics Gateway": { fr: "Porte logistique à bas coût", es: "Puerta logística de bajo coste", de: "Kostengünstiges Logistik-Tor" },
+            "Tanger Med ➔ Algeciras Ferry Corridor": { fr: "Corridor maritime Tanger Med ➔ Algésiras", es: "Corredor de ferry Tánger Med ➔ Algeciras", de: "Fährkorridor Tanger Med ➔ Algeciras" },
+            "2-4 Days Road Delivery Time": { fr: "Livraison routière en 2 à 4 jours", es: "Entrega por carretera en 2-4 días", de: "2–4 Tage Lieferzeit per Straße" },
+            "Pop-Up Retail Strategy in Barcelona": { fr: "Stratégie de boutiques éphémères à Barcelone", es: "Estrategia de tiendas pop-up en Barcelona", de: "Pop-up-Store-Strategie in Barcelona" },
+            "Phase 3 • High Volume": { fr: "Phase 3 • Volume élevé", es: "Fase 3 • Alto volumen", de: "Phase 3 • Hohes Volumen" },
+            "Germany": { fr: "Allemagne", es: "Alemania", de: "Deutschland" },
+            "Berlin • Munich • Frankfurt": { fr: "Berlin • Munich • Francfort", es: "Berlín • Múnich • Fráncfort", de: "Berlin • München • Frankfurt" },
+            "Highest EU Purchasing Power": { fr: "Plus fort pouvoir d'achat de l'UE", es: "Mayor poder adquisitivo de la UE", de: "Höchste Kaufkraft in der EU" },
+            "Demands Local Returns Hub": { fr: "Exige un centre de retours local", es: "Requiere un centro local de devoluciones", de: "Erfordert lokales Retourenzentrum" },
+            "Klarna & Open Invoice Integration": { fr: "Intégration Klarna & paiement sur facture", es: "Integración de Klarna y pago con factura", de: "Klarna- & Rechnungskauf-Integration" },
+            "Strict REACH Chemical Compliance": { fr: "Conformité chimique REACH stricte", es: "Estricto cumplimiento químico REACH", de: "Strenge REACH-Chemikalienkonformität" },
+            "International Trade & Customs Framework (EU — Morocco)": { fr: "Cadre du commerce international & des douanes (UE — Maroc)", es: "Marco de comercio internacional y aduanas (UE — Marruecos)", de: "Rahmen für internationalen Handel & Zoll (EU — Marokko)" },
+            "Customs Duty": { fr: "Droits de douane", es: "Derechos de aduana", de: "Zoll" },
+            "0% Tariff Exemption": { fr: "Exonération à 0 %", es: "Exención arancelaria del 0 %", de: "0 % Zollbefreiung" },
+            "Under EU-Morocco Free Trade Agreement. EUR.1 origin certificate verifies fabric processing and craftsmanship in Morocco.": {
+                fr: "Dans le cadre de l'accord de libre-échange UE-Maroc. Le certificat d'origine EUR.1 atteste la transformation des tissus et la fabrication au Maroc.",
+                es: "En virtud del Acuerdo de Libre Comercio UE-Marruecos. El certificado de origen EUR.1 acredita la transformación del tejido y la fabricación en Marruecos.",
+                de: "Im Rahmen des Freihandelsabkommens EU–Marokko. Das Ursprungszeugnis EUR.1 belegt Stoffverarbeitung und Fertigung in Marokko." },
+            "EU Import Taxes": { fr: "Taxes d'importation UE", es: "Impuestos de importación UE", de: "EU-Einfuhrsteuern" },
+            "IOSS VAT Clearance": { fr: "Dédouanement TVA via IOSS", es: "Despacho de IVA vía IOSS", de: "MwSt.-Abwicklung über IOSS" },
+            "Import One-Stop Shop (IOSS) collects French 20% / Spanish 21% / German 19% VAT seamlessly at checkout with zero customs delays.": {
+                fr: "Le guichet unique à l'importation (IOSS) collecte la TVA française 20 % / espagnole 21 % / allemande 19 % directement au paiement, sans délai douanier.",
+                es: "La ventanilla única de importación (IOSS) cobra el IVA francés 20 % / español 21 % / alemán 19 % directamente en el pago, sin retrasos aduaneros.",
+                de: "Der Import-One-Stop-Shop (IOSS) erhebt die französische (20 %), spanische (21 %) bzw. deutsche (19 %) MwSt. direkt beim Checkout – ohne Zollverzögerung." },
+            "Safety & Standards": { fr: "Sécurité & normes", es: "Seguridad y normas", de: "Sicherheit & Normen" },
+            "REACH & Labelling": { fr: "REACH & étiquetage", es: "REACH y etiquetado", de: "REACH & Kennzeichnung" },
+            "Strict compliance for azo-dyes, heavy metals in jewelry, fiber composition tags in French, Spanish, and German.": {
+                fr: "Conformité stricte sur les colorants azoïques, les métaux lourds dans les bijoux et l'étiquetage de composition en français, espagnol et allemand.",
+                es: "Cumplimiento estricto en colorantes azoicos, metales pesados en joyería y etiquetas de composición en francés, español y alemán.",
+                de: "Strenge Einhaltung bei Azofarbstoffen, Schwermetallen in Schmuck und Faserkennzeichnung auf Französisch, Spanisch und Deutsch." },
+            "Logistics Corridor": { fr: "Corridor logistique", es: "Corredor logístico", de: "Logistikkorridor" },
+            "French 3PL Hub": { fr: "Hub 3PL en France", es: "Centro 3PL en Francia", de: "3PL-Hub in Frankreich" },
+            "Air freight from Casablanca to Paris hub for 1-3 day last-mile delivery across EU, automated returns processing.": {
+                fr: "Fret aérien de Casablanca vers le hub de Paris pour une livraison du dernier kilomètre en 1 à 3 jours dans toute l'UE, avec traitement automatisé des retours.",
+                es: "Carga aérea de Casablanca al centro de París para entregas de última milla en 1-3 días en toda la UE, con gestión automatizada de devoluciones.",
+                de: "Luftfracht von Casablanca zum Pariser Hub für Last-Mile-Zustellung in 1–3 Tagen EU-weit, mit automatisierter Retourenabwicklung." },
+
+            // Economics
+            "Interactive Financial Model": { fr: "Modèle financier interactif", es: "Modelo financiero interactivo", de: "Interaktives Finanzmodell" },
+            "Unit Economics Case Study:": { fr: "Étude de cas – économie unitaire :", es: "Caso práctico de economía unitaria:", de: "Fallstudie Stückkosten:" },
+            "The Atlas Jacket": { fr: "La veste Atlas", es: "La chaqueta Atlas", de: "Die Atlas-Jacke" },
+            "Examine TIZIRI’s financial architecture. Adjust selling price, batch quantity, or customer acquisition cost (CAC) in real time to observe landed cost, EU VAT deduction, and net margin performance.": {
+                fr: "Explorez l'architecture financière de TIZIRI. Ajustez en temps réel le prix de vente, la taille du lot ou le coût d'acquisition client (CAC) pour observer le coût de revient rendu, la déduction de TVA UE et la marge nette.",
+                es: "Examina la arquitectura financiera de TIZIRI. Ajusta en tiempo real el precio de venta, el tamaño del lote o el coste de adquisición de clientes (CAC) para ver el coste puesto en destino, la deducción del IVA de la UE y el margen neto.",
+                de: "Entdecken Sie die Finanzarchitektur von TIZIRI. Passen Sie Verkaufspreis, Losgröße oder Kundenakquisitionskosten (CAC) in Echtzeit an und sehen Sie Einstandskosten, EU-MwSt.-Abzug und Nettomarge." },
+            "Selling Price (EUR inc. VAT):": { fr: "Prix de vente (EUR TTC) :", es: "Precio de venta (EUR con IVA):", de: "Verkaufspreis (EUR inkl. MwSt.):" },
+            "Batch Order Quantity:": { fr: "Quantité par lot :", es: "Cantidad por lote:", de: "Losgröße:" },
+            "Marketing CAC per Order:": { fr: "CAC marketing par commande :", es: "CAC de marketing por pedido:", de: "Marketing-CAC pro Bestellung:" },
+            "Net Price (ex. VAT)": { fr: "Prix net (HT)", es: "Precio neto (sin IVA)", de: "Nettopreis (exkl. MwSt.)" },
+            "Total Unit Cost": { fr: "Coût unitaire total", es: "Coste unitario total", de: "Gesamtstückkosten" },
+            "Expected Profit": { fr: "Profit attendu", es: "Beneficio esperado", de: "Erwarteter Gewinn" },
+            "Production Cost (Fabric, Labor, Embroidery)": { fr: "Coût de production (tissu, main-d'œuvre, broderie)", es: "Coste de producción (tejido, mano de obra, bordado)", de: "Produktionskosten (Stoff, Arbeit, Stickerei)" },
+            "Eco Packaging & Branded Unboxing": { fr: "Emballage éco & unboxing de marque", es: "Embalaje ecológico y unboxing de marca", de: "Öko-Verpackung & Marken-Unboxing" },
+            "Air Freight & Last-Mile Delivery": { fr: "Fret aérien & livraison du dernier kilomètre", es: "Carga aérea y entrega de última milla", de: "Luftfracht & Last-Mile-Zustellung" },
+            "Customs Duty (0% FTA) + Broker Fees": { fr: "Droits de douane (0 % ALE) + frais de transitaire", es: "Aranceles (0 % TLC) + honorarios del agente", de: "Zoll (0 % FHA) + Maklergebühren" },
+            "Payment Processing (Stripe/PayPal)": { fr: "Frais de paiement (Stripe/PayPal)", es: "Procesamiento de pagos (Stripe/PayPal)", de: "Zahlungsabwicklung (Stripe/PayPal)" },
+            "Provision for EU Returns Handling": { fr: "Provision pour retours UE", es: "Provisión para devoluciones UE", de: "Rückstellung für EU-Retouren" },
+            "Marketing Acquisition (Meta / TikTok Ads)": { fr: "Acquisition marketing (Meta / TikTok Ads)", es: "Adquisición de marketing (Meta / TikTok Ads)", de: "Marketing-Akquise (Meta / TikTok Ads)" },
+            "Net Profit Margin (ex-VAT)": { fr: "Marge nette (HT)", es: "Margen de beneficio neto (sin IVA)", de: "Nettogewinnmarge (exkl. MwSt.)" },
+
+            // Risks
+            "Risk Mitigation Framework": { fr: "Cadre de maîtrise des risques", es: "Marco de mitigación de riesgos", de: "Rahmen zur Risikominderung" },
+            "Identified Risks & Strategic Solutions": { fr: "Risques identifiés & solutions stratégiques", es: "Riesgos identificados y soluciones estratégicas", de: "Identifizierte Risiken & strategische Lösungen" },
+            "Proactive operational controls safeguard TIZIRI against exchange rate volatility, regulatory friction, transport delays, and return rates.": {
+                fr: "Des contrôles opérationnels proactifs protègent TIZIRI contre la volatilité des changes, les frictions réglementaires, les retards de transport et les taux de retour.",
+                es: "Controles operativos proactivos protegen a TIZIRI frente a la volatilidad cambiaria, las fricciones regulatorias, los retrasos de transporte y las tasas de devolución.",
+                de: "Proaktive operative Kontrollen schützen TIZIRI vor Wechselkursschwankungen, regulatorischen Hürden, Transportverzögerungen und Retourenquoten." },
+            "Risk:": { fr: "Risque :", es: "Riesgo:", de: "Risiko:" },
+            "Solution:": { fr: "Solution :", es: "Solución:", de: "Lösung:" },
+            "Exchange Rate Fluctuations": { fr: "Fluctuations des taux de change", es: "Fluctuaciones del tipo de cambio", de: "Wechselkursschwankungen" },
+            "Costs in Moroccan Dirham (MAD), revenues in Euro (EUR).": { fr: "Coûts en dirham marocain (MAD), revenus en euro (EUR).", es: "Costes en dírham marroquí (MAD), ingresos en euros (EUR).", de: "Kosten in Marokkanischen Dirham (MAD), Umsätze in Euro (EUR)." },
+            "Euro multi-currency accounts in Morocco, forward contracts for raw material purchases, natural hedge.": { fr: "Comptes multidevises en euro au Maroc, contrats à terme pour les achats de matières premières, couverture naturelle.", es: "Cuentas multidivisa en euros en Marruecos, contratos a plazo para compras de materias primas, cobertura natural.", de: "Euro-Fremdwährungskonten in Marokko, Termingeschäfte für Rohstoffeinkäufe, natürliche Absicherung." },
+            "Customs & Origin Rules": { fr: "Douanes & règles d'origine", es: "Aduanas y normas de origen", de: "Zoll & Ursprungsregeln" },
+            "Disallowance of 0% FTA duty if fabric origin isn't properly documented.": { fr: "Perte du droit à 0 % de l'ALE si l'origine des tissus n'est pas correctement documentée.", es: "Pérdida del arancel 0 % del TLC si el origen del tejido no está bien documentado.", de: "Verlust des 0-%-FHA-Zolls, wenn die Stoffherkunft nicht korrekt dokumentiert ist." },
+            "Licensed customs broker, complete EUR.1 origin tracking from thread/spinning stage, IOSS VAT registration.": { fr: "Transitaire agréé, traçabilité EUR.1 complète dès le filage, immatriculation TVA IOSS.", es: "Agente de aduanas autorizado, trazabilidad EUR.1 completa desde el hilado, registro de IVA IOSS.", de: "Lizenzierter Zollmakler, lückenlose EUR.1-Rückverfolgung ab der Spinnerei, IOSS-MwSt.-Registrierung." },
+            "IP Protection & Fast Fashion": { fr: "Propriété intellectuelle & fast fashion", es: "Propiedad intelectual y moda rápida", de: "Markenschutz & Fast Fashion" },
+            "Design copying by high-street fast fashion retailers.": { fr: "Copie des créations par les enseignes de fast fashion.", es: "Copia de diseños por cadenas de moda rápida.", de: "Kopieren von Designs durch Fast-Fashion-Ketten." },
+            "EU Intellectual Property trademark registration (EUIPO), small limited batch releases, focus on story & craft authenticity.": { fr: "Dépôt de marque auprès de l'EUIPO, sorties en petites séries limitées, accent sur l'histoire et l'authenticité artisanale.", es: "Registro de marca en la EUIPO, lanzamientos en pequeñas series limitadas, foco en la historia y la autenticidad artesanal.", de: "Markenanmeldung beim EUIPO, limitierte Kleinserien, Fokus auf Geschichte und handwerkliche Authentizität." },
+            "Logistics & Parcel Delays": { fr: "Logistique & retards de colis", es: "Logística y retrasos de paquetes", de: "Logistik & Paketverzögerungen" },
+            "Customs checks or air carrier delays during peak fashion seasons.": { fr: "Contrôles douaniers ou retards aériens en haute saison.", es: "Controles aduaneros o retrasos aéreos en temporada alta.", de: "Zollkontrollen oder Verzögerungen bei Luftfrachtführern in der Hochsaison." },
+            "Dual courier strategy (DHL/FedEx + French 3PL hub), insured consignments, safety buffer inventory held near Paris.": { fr: "Double transporteur (DHL/FedEx + hub 3PL en France), envois assurés, stock de sécurité près de Paris.", es: "Estrategia de doble mensajería (DHL/FedEx + centro 3PL en Francia), envíos asegurados, stock de seguridad cerca de París.", de: "Zwei Kurierdienste (DHL/FedEx + 3PL-Hub in Frankreich), versicherte Sendungen, Sicherheitsbestand bei Paris." },
+            "High German Return Rates": { fr: "Taux de retour élevés en Allemagne", es: "Altas tasas de devolución en Alemania", de: "Hohe Retourenquoten in Deutschland" },
+            "E-commerce return rates in Germany reach 40-50% for fashion.": { fr: "En Allemagne, les retours e-commerce atteignent 40 à 50 % dans la mode.", es: "En Alemania, las devoluciones online en moda alcanzan el 40-50 %.", de: "Im deutschen Mode-E-Commerce liegen die Retourenquoten bei 40–50 %." },
+            "Highly detailed sizing guides, fit videos, local EU returns processing hub, quick resale inspection workflow.": { fr: "Guides des tailles très détaillés, vidéos de coupe, centre de retours local dans l'UE, contrôle rapide avant remise en vente.", es: "Guías de tallas muy detalladas, vídeos de ajuste, centro local de devoluciones en la UE, inspección rápida para reventa.", de: "Sehr detaillierte Größentabellen, Passform-Videos, lokales EU-Retourenzentrum, schnelle Prüfung zum Wiederverkauf." },
+            "Macroeconomic Slowdowns": { fr: "Ralentissements macroéconomiques", es: "Desaceleraciones macroeconómicas", de: "Konjunkturabschwächungen" },
+            "European consumer spending contraction or inflation spikes.": { fr: "Baisse de la consommation européenne ou pics d'inflation.", es: "Contracción del consumo europeo o picos de inflación.", de: "Rückgang der europäischen Konsumausgaben oder Inflationsspitzen." },
+            "Geographically diversified sales across France, Spain, Germany, lean on-demand batch production cycles.": { fr: "Ventes diversifiées entre la France, l'Espagne et l'Allemagne, production en petits lots à la demande.", es: "Ventas diversificadas entre Francia, España y Alemania, ciclos de producción ágiles bajo demanda.", de: "Geografisch gestreute Verkäufe in Frankreich, Spanien und Deutschland, schlanke Produktion auf Abruf." },
+
+            // Footer
+            "\"Moroccan soul, modern lines.\" Contemporary luxury fashion bridging authentic North African heritage with modern European aesthetic standards.": {
+                fr: "« Âme marocaine, lignes modernes. » Une mode de luxe contemporaine qui relie l'héritage nord-africain authentique aux codes esthétiques européens modernes.",
+                es: "«Alma marroquí, líneas modernas.» Moda de lujo contemporánea que une la auténtica herencia norteafricana con los estándares estéticos europeos modernos.",
+                de: "„Marokkanische Seele, moderne Linien.“ Zeitgenössische Luxusmode, die authentisches nordafrikanisches Erbe mit modernen europäischen Ästhetikstandards verbindet." },
+            "Project Navigation": { fr: "Navigation", es: "Navegación", de: "Navigation" },
+            "Collection 01 'Marrakech'": { es: "Colección 01 'Marrakech'", de: "Kollektion 01 'Marrakech'" },
+            "Craftsmanship & Hubs": { fr: "Savoir-faire & ateliers", es: "Artesanía y talleres", de: "Handwerk & Ateliers" },
+            "EU Expansion Strategy": { fr: "Stratégie d'expansion UE", es: "Estrategia de expansión UE", de: "EU-Expansionsstrategie" },
+            "Atlas Jacket Financials": { fr: "Finances de la veste Atlas", es: "Finanzas de la chaqueta Atlas", de: "Finanzen der Atlas-Jacke" },
+            "Risk Mitigation Matrix": { fr: "Matrice de maîtrise des risques", es: "Matriz de mitigación de riesgos", de: "Risikominderungsmatrix" },
+            "Join The Journey": { fr: "Rejoignez l'aventure", es: "Únete al viaje", de: "Werden Sie Teil der Reise" },
+            "Subscribe for private launch previews and international retail pop-up announcements in Paris & Barcelona.": { fr: "Inscrivez-vous pour les avant-premières privées et les annonces de pop-up stores à Paris & Barcelone.", es: "Suscríbete para preestrenos privados y anuncios de tiendas pop-up en París y Barcelona.", de: "Abonnieren Sie private Vorabpremieren und Ankündigungen zu Pop-up-Stores in Paris & Barcelona." },
+            "Enter your email address": { fr: "Votre adresse e-mail", es: "Tu correo electrónico", de: "Ihre E-Mail-Adresse" },
+            "Join": { fr: "S'inscrire", es: "Unirme", de: "Beitreten" },
+            "© 2026 TIZIRI Fashion House. International Trade Business Plan Project.": { fr: "© 2026 Maison TIZIRI. Projet de business plan en commerce international.", es: "© 2026 Casa de moda TIZIRI. Proyecto de plan de negocio de comercio internacional.", de: "© 2026 Modehaus TIZIRI. Businessplan-Projekt für internationalen Handel." },
+            "Casablanca • Paris • Barcelona • Berlin": { fr: "Casablanca • Paris • Barcelone • Berlin", es: "Casablanca • París • Barcelona • Berlín" },
+
+            // Quick view, bag & business modal
+            "Hover cursor to inspect fabric detail": { fr: "Survolez pour inspecter les détails", es: "Pasa el cursor para ver el detalle", de: "Für Details mit dem Cursor darüberfahren" },
+            "Craft Hub:": { fr: "Atelier :", es: "Taller:", de: "Atelier:" },
+            "Materials:": { fr: "Matières :", es: "Materiales:", de: "Materialien:" },
+            "Add to Shopping Bag": { fr: "Ajouter au panier", es: "Añadir a la bolsa", de: "In die Tasche legen" },
+            "Your Bag": { fr: "Votre panier", es: "Tu bolsa", de: "Ihre Tasche" },
+            "Subtotal": { fr: "Sous-total", de: "Zwischensumme" },
+            "Total (inc. VAT)": { fr: "Total (TTC)", es: "Total (IVA incl.)", de: "Gesamt (inkl. MwSt.)" },
+            "View Wishlist": { fr: "Voir mes favoris", es: "Ver favoritos", de: "Wunschliste ansehen" },
+            "Country, language & currency": { fr: "Pays, langue & devise", es: "País, idioma y moneda", de: "Land, Sprache & Währung" },
+            "Executive Report & Briefing": { fr: "Rapport de synthèse", es: "Informe ejecutivo", de: "Executive Summary" },
+            "TIZIRI — International Trade Business Project": { fr: "TIZIRI — Projet d'entreprise en commerce international", es: "TIZIRI — Proyecto empresarial de comercio internacional", de: "TIZIRI — Unternehmensprojekt Internationaler Handel" },
+            "Brand Identity:": { fr: "Identité de marque :", es: "Identidad de marca:", de: "Markenidentität:" },
+            "TIZIRI (\"Moonlight\" in Amazigh) |": { fr: "TIZIRI (« Clair de lune » en amazigh) |", es: "TIZIRI («Luz de luna» en amazigh) |", de: "TIZIRI („Mondlicht“ auf Amazigh) |" },
+            "\"Moroccan soul, modern lines.\"": { fr: "« Âme marocaine, lignes modernes. »", es: "«Alma marroquí, líneas modernas.»", de: "„Marokkanische Seele, moderne Linien.“" },
+            "Strategic Thesis:": { fr: "Thèse stratégique :", es: "Tesis estratégica:", de: "Strategische These:" },
+            "Contemporary fashion brand combining 80-90% modern European design silhouettes with 10-20% Moroccan craft identity. Target audience: 18 to 35-year-old urban consumers and North African diaspora seeking distinctive, premium storytelling apparel.": {
+                fr: "Marque de mode contemporaine associant 80-90 % de silhouettes européennes modernes à 10-20 % d'identité artisanale marocaine. Cible : consommateurs urbains de 18 à 35 ans et diaspora nord-africaine en quête de vêtements premium, distinctifs et porteurs d'histoire.",
+                es: "Marca de moda contemporánea que combina un 80-90 % de siluetas europeas modernas con un 10-20 % de identidad artesanal marroquí. Público objetivo: consumidores urbanos de 18 a 35 años y diáspora norteafricana que buscan prendas premium, distintivas y con historia.",
+                de: "Zeitgenössische Modemarke, die 80–90 % moderne europäische Silhouetten mit 10–20 % marokkanischer Handwerksidentität verbindet. Zielgruppe: urbane Konsumenten zwischen 18 und 35 Jahren sowie die nordafrikanische Diaspora, die unverwechselbare Premium-Mode mit Geschichte sucht." },
+            "Market Entry Priority:": { fr: "Priorité d'entrée sur les marchés :", es: "Prioridad de entrada al mercado:", de: "Markteintrittspriorität:" },
+            "1st France (largest diaspora, shared French language, 3.5h direct logistics), 2nd Spain (low-cost Tanger Med sea-road gateway), 3rd Germany (high purchasing power, strict return/REACH compliance).": {
+                fr: "1) France (plus grande diaspora, langue française commune, logistique directe en 3 h 30), 2) Espagne (passerelle maritime et routière Tanger Med à bas coût), 3) Allemagne (fort pouvoir d'achat, exigences strictes en retours et REACH).",
+                es: "1.º Francia (mayor diáspora, idioma francés compartido, logística directa de 3,5 h), 2.º España (puerta marítimo-terrestre de bajo coste vía Tánger Med), 3.º Alemania (alto poder adquisitivo, exigencias estrictas de devoluciones y REACH).",
+                de: "1. Frankreich (größte Diaspora, gemeinsame französische Sprache, 3,5 Std. Direktlogistik), 2. Spanien (günstiges See-Straßen-Tor über Tanger Med), 3. Deutschland (hohe Kaufkraft, strenge Retouren- und REACH-Anforderungen)." },
+            "Operational Architecture:": { fr: "Architecture opérationnelle :", es: "Arquitectura operativa:", de: "Operative Architektur:" },
+            "Direct-to-consumer e-commerce from Casablanca, backed by a 3PL logistics partner in Paris for fast EU delivery & local returns, duty-free clearance under EU-Morocco FTA with EUR.1 origin certification, and automated IOSS VAT collection.": {
+                fr: "E-commerce direct au consommateur depuis Casablanca, appuyé par un partenaire logistique 3PL à Paris pour une livraison rapide dans l'UE et des retours locaux, dédouanement en franchise de droits grâce à l'ALE UE-Maroc avec certificat EUR.1, et collecte automatisée de la TVA via l'IOSS.",
+                es: "E-commerce directo al consumidor desde Casablanca, con un socio logístico 3PL en París para entregas rápidas en la UE y devoluciones locales, despacho libre de aranceles bajo el TLC UE-Marruecos con certificado EUR.1 y cobro automatizado del IVA vía IOSS.",
+                de: "Direct-to-Consumer-E-Commerce aus Casablanca, unterstützt durch einen 3PL-Logistikpartner in Paris für schnelle EU-Lieferung und lokale Retouren, zollfreie Abfertigung gemäß FHA EU–Marokko mit EUR.1-Ursprungsnachweis und automatisierte IOSS-MwSt.-Erhebung." }
+        };
+
+        // Paragraphs that contain inline formatting are translated as whole HTML blocks
+        const I18N_HTML = {
+            heroIntro: {
+                fr: `<strong class="font-semibold text-tiziri-brown">TIZIRI</strong> (« <em>Clair de lune</em> » en amazigh) fusionne 80-90 % de design européen contemporain épuré et 10-20 % d'héritage marocain authentique. Façonné à Casablanca, Marrakech et Fès pour les esprits avertis du monde entier.`,
+                es: `<strong class="font-semibold text-tiziri-brown">TIZIRI</strong> («<em>Luz de luna</em>» en amazigh) fusiona un 80-90 % de diseño europeo contemporáneo y depurado con un 10-20 % de auténtica herencia marroquí. Creado en Casablanca, Marrakech y Fez para referentes de estilo de todo el mundo.`,
+                de: `<strong class="font-semibold text-tiziri-brown">TIZIRI</strong> (Amazigh für „<em>Mondlicht</em>“) verbindet 80–90 % klares, zeitgenössisches europäisches Design mit 10–20 % authentischem marokkanischem Erbe. Gefertigt in Casablanca, Marrakesch und Fès für anspruchsvolle Trendsetter weltweit.`
+            }
+        };
+
+        // Interface strings used by the dynamic parts (cards, bag, toasts, modal)
+        const UI = {
+            quickView: { en: "Quick View", fr: "Aperçu rapide", es: "Vista rápida", de: "Schnellansicht" },
+            add: { en: "+ Add", fr: "+ Ajouter", es: "+ Añadir", de: "+ Hinzufügen" },
+            hero: { en: "Hero Item", fr: "Pièce phare", es: "Pieza estrella", de: "Signature-Piece" },
+            from: { en: "From", fr: "Dès", es: "Desde", de: "Ab" },
+            lines: { en: "4 lines", fr: "4 lignes", es: "4 líneas", de: "4 Linien" },
+            selectSize: { en: "Select Size", fr: "Choisir la taille", es: "Elegir talla", de: "Größe wählen" },
+            selectShoe: { en: "Select EU Size", fr: "Pointure (EU)", es: "Talla (EU)", de: "Schuhgröße (EU)" },
+            selectLine: { en: "Choose your line", fr: "Choisissez votre ligne", es: "Elige tu línea", de: "Linie wählen" },
+            oneSize: { en: "One size", fr: "Taille unique", es: "Talla única", de: "Einheitsgröße" },
+            size: { en: "Size", fr: "Taille", es: "Talla", de: "Größe" },
+            added: { en: "Added {x} to your bag", fr: "{x} ajouté au panier", es: "{x} añadido a tu bolsa", de: "{x} liegt in Ihrer Tasche" },
+            savedWish: { en: "Saved to wishlist", fr: "Ajouté aux favoris", es: "Guardado en favoritos", de: "Zur Wunschliste hinzugefügt" },
+            removedWish: { en: "Removed from wishlist", fr: "Retiré des favoris", es: "Eliminado de favoritos", de: "Von der Wunschliste entfernt" },
+            wishEmpty: { en: "Your wishlist is empty — tap ♡ on a piece to save it", fr: "Vos favoris sont vides — touchez ♡ sur une pièce", es: "Tus favoritos están vacíos — toca ♡ en una pieza", de: "Ihre Wunschliste ist leer — tippen Sie auf ♡" },
+            wishShow: { en: "Showing your wishlist", fr: "Affichage de vos favoris", es: "Mostrando tus favoritos", de: "Ihre Wunschliste wird angezeigt" },
+            empty: { en: "Your bag is currently empty.", fr: "Votre panier est vide.", es: "Tu bolsa está vacía.", de: "Ihre Tasche ist leer." },
+            switched: { en: "Now showing: {x}", fr: "Affichage : {x}", es: "Mostrando: {x}", de: "Angezeigt: {x}" },
+            subscribed: { en: "Subscribed to TIZIRI Newsletter!", fr: "Inscription à la newsletter TIZIRI confirmée !", es: "¡Suscrito a la newsletter de TIZIRI!", de: "TIZIRI-Newsletter abonniert!" },
+            bagEmpty: { en: "Your bag is empty!", fr: "Votre panier est vide !", es: "¡Tu bolsa está vacía!", de: "Ihre Tasche ist leer!" },
+            checkoutEU: { en: "Simulating direct EU Checkout via IOSS VAT clearance...", fr: "Simulation du paiement UE direct via l'IOSS...", es: "Simulando el pago directo UE vía IOSS...", de: "Direkter EU-Checkout über IOSS wird simuliert..." },
+            checkoutMA: { en: "Confirming your order — cash on delivery...", fr: "Confirmation de votre commande — paiement à la livraison...", es: "Confirmando tu pedido — pago contra reembolso...", de: "Bestellung wird bestätigt — Zahlung bei Lieferung..." },
+            placed: { en: "Order successfully placed! Merci beaucoup.", fr: "Commande confirmée ! Merci beaucoup.", es: "¡Pedido realizado! Muchas gracias.", de: "Bestellung aufgegeben! Vielen Dank." },
+            placedMA: { en: "Order confirmed! We'll call you to arrange delivery. Choukran!", fr: "Commande confirmée ! Nous vous appelons pour la livraison. Choukran !", es: "¡Pedido confirmado! Te llamaremos para la entrega. ¡Choukran!", de: "Bestellung bestätigt! Wir rufen Sie zur Lieferung an. Choukran!" },
+            units: { en: "units", fr: "unités", es: "unidades", de: "Stück" },
+            shipEU: { en: "Estimated Shipping (EU Hub)", fr: "Livraison estimée (hub UE)", es: "Envío estimado (centro UE)", de: "Geschätzter Versand (EU-Hub)" },
+            shipEUval: { en: "Calculated at checkout", fr: "Calculée au paiement", es: "Se calcula al pagar", de: "Wird beim Checkout berechnet" },
+            shipMA: { en: "Delivery in Morocco (24–72h)", fr: "Livraison au Maroc (24–72 h)", es: "Entrega en Marruecos (24–72 h)", de: "Lieferung in Marokko (24–72 Std.)" },
+            free: { en: "Free", fr: "Offerte", es: "Gratis", de: "Kostenlos" },
+            freeLeft: { en: "Add {x} more for free delivery", fr: "Plus que {x} pour la livraison offerte", es: "Te faltan {x} para el envío gratis", de: "Noch {x} bis zur kostenlosen Lieferung" },
+            freeOk: { en: "Free delivery unlocked ✓", fr: "Livraison offerte débloquée ✓", es: "Envío gratis conseguido ✓", de: "Kostenlose Lieferung freigeschaltet ✓" },
+            btnEU: { en: "Proceed to Direct EU Checkout", fr: "Passer au paiement UE", es: "Ir al pago UE", de: "Zum EU-Checkout" },
+            btnMA: { en: "Order now — Cash on delivery", fr: "Commander — Paiement à la livraison", es: "Pedir — Pago contra reembolso", de: "Bestellen — Zahlung bei Lieferung" },
+            totalEU: { en: "Total (inc. VAT)", fr: "Total (TTC)", es: "Total (IVA incl.)", de: "Gesamt (inkl. MwSt.)" },
+            noteEU: { en: "EU prices incl. VAT · shipped from our Paris hub", fr: "Prix UE TTC · expédié depuis notre hub de Paris", es: "Precios UE con IVA · enviado desde nuestro centro de París", de: "EU-Preise inkl. MwSt. · Versand aus unserem Pariser Hub" },
+            noteMA: { en: "Local Moroccan prices — made here, no export or EU shipping costs", fr: "Prix locaux Maroc — fabriqué ici, sans frais d'export ni de livraison UE", es: "Precios locales de Marruecos — sin costes de exportación ni envío a la UE", de: "Lokale Preise in Marokko — ohne Export- oder EU-Versandkosten" },
+            docTitle: { en: "TIZIRI — Moroccan Soul, Modern Lines | International Fashion Showcase", fr: "TIZIRI — Âme marocaine, lignes modernes | Vitrine mode internationale", es: "TIZIRI — Alma marroquí, líneas modernas | Escaparate de moda internacional", de: "TIZIRI — Marokkanische Seele, moderne Linien | Internationales Mode-Showcase" }
+        };
+    </script>
+    <script>
+
+        // Products Database with image paths
+        // priceEUR = European price (includes air freight to Paris, EU returns provision, EU VAT)
+        // priceMAD = local Moroccan price (made & sold in Morocco: no export / EU shipping costs, TVA 20% incl.)
+        const PRODUCTS = [
+            {
+                id: 'atlas-jacket',
+                title: 'The Atlas Jacket',
+                category: 'Apparel',
+                isHero: true,
+                sizing: 'clothing',
+                priceEUR: 190,
+                priceMAD: 1490,
+                image: 'images/atlas-jacket.jpg',
+                hub: 'Casablanca & Fez',
+                materials: 'Structured Wool Blend, Geometric Lapel Embroidery',
+                description: 'Hero Piece. Oversized structured coat with understated Atlas geometric embroidery along the lapels and cuffs.',
+                i18n: {
+                    fr: { title: 'La veste Atlas', hub: 'Casablanca & Fès', materials: 'Mélange de laine structuré, broderie géométrique aux revers', description: 'Pièce phare. Manteau oversize structuré, rehaussé d’une broderie géométrique de l’Atlas le long des revers et des poignets.' },
+                    es: { title: 'La chaqueta Atlas', hub: 'Casablanca y Fez', materials: 'Mezcla de lana estructurada, bordado geométrico en solapas', description: 'Pieza estrella. Abrigo oversize estructurado con discreto bordado geométrico del Atlas en solapas y puños.' },
+                    de: { title: 'Die Atlas-Jacke', hub: 'Casablanca & Fès', materials: 'Strukturierte Wollmischung, geometrische Revers-Stickerei', description: 'Signature-Piece. Oversized strukturierter Mantel mit dezenter geometrischer Atlas-Stickerei an Revers und Manschetten.' }
+                }
+            },
+            {
+                id: 'medina-shirt',
+                title: 'The Medina Shirt',
+                category: 'Apparel',
+                isHero: false,
+                sizing: 'clothing',
+                priceEUR: 110,
+                priceMAD: 790,
+                image: 'images/medina-shirt.jpg',
+                hub: 'Casablanca Atelier',
+                materials: '100% Organic Linen, Tone-on-Tone Stitching',
+                description: 'Relaxed premium band-collar shirt featuring subtle geometric motif detailing down the placket.',
+                i18n: {
+                    fr: { title: 'La chemise Medina', hub: 'Atelier de Casablanca', materials: '100 % lin biologique, surpiqûres ton sur ton', description: 'Chemise premium décontractée à col officier, ornée d’un motif géométrique subtil le long de la patte de boutonnage.' },
+                    es: { title: 'La camisa Medina', hub: 'Taller de Casablanca', materials: '100 % lino orgánico, pespuntes tono sobre tono', description: 'Camisa premium relajada de cuello mao con sutil motivo geométrico a lo largo de la tapeta.' },
+                    de: { title: 'Das Medina-Hemd', hub: 'Atelier Casablanca', materials: '100 % Bio-Leinen, Ton-in-Ton-Nähte', description: 'Lässiges Premium-Hemd mit Stehkragen und dezentem geometrischem Motiv entlang der Knopfleiste.' }
+                }
+            },
+            {
+                id: 'sahara-set',
+                title: 'The Sahara Linen Set',
+                category: 'Apparel',
+                isHero: false,
+                sizing: 'clothing',
+                priceEUR: 160,
+                priceMAD: 1190,
+                image: 'images/sahara-set.jpg',
+                hub: 'Casablanca Atelier',
+                materials: 'Pure Sand & Terracotta Linen',
+                description: 'Lightweight two-piece relaxed linen shirt and wide-leg trouser ensemble designed for summer elegance.',
+                i18n: {
+                    fr: { title: 'L’ensemble en lin Sahara', hub: 'Atelier de Casablanca', materials: 'Lin pur sable & terracotta', description: 'Ensemble léger deux pièces : chemise en lin décontractée et pantalon large, pensé pour l’élégance estivale.' },
+                    es: { title: 'El conjunto de lino Sahara', hub: 'Taller de Casablanca', materials: 'Lino puro arena y terracota', description: 'Conjunto ligero de dos piezas: camisa de lino relajada y pantalón ancho, pensado para la elegancia de verano.' },
+                    de: { title: 'Das Sahara-Leinenset', hub: 'Atelier Casablanca', materials: 'Reines Leinen in Sand & Terrakotta', description: 'Leichtes Zweiteiler-Ensemble aus lässigem Leinenhemd und weiter Hose für sommerliche Eleganz.' }
+                }
+            },
+            {
+                id: 'leather-weekender',
+                title: 'Leather Weekender Bag',
+                category: 'Leather',
+                isHero: false,
+                sizing: 'none',
+                priceEUR: 280,
+                priceMAD: 2190,
+                image: 'images/leather-weekender.jpg',
+                hub: 'Marrakech Tannery',
+                materials: 'Vegetable-Tanned Full Grain Leather, Brass Hardware',
+                description: 'Handcrafted travel bag crafted in Marrakech with natural tanning processes and heavy brass zip closures.',
+                i18n: {
+                    fr: { title: 'Sac week-end en cuir', hub: 'Tannerie de Marrakech', materials: 'Cuir pleine fleur tanné végétal, ferrures en laiton', description: 'Sac de voyage fait main à Marrakech, tannage naturel et fermetures éclair robustes en laiton.' },
+                    es: { title: 'Bolso de fin de semana de piel', hub: 'Curtiduría de Marrakech', materials: 'Piel plena flor curtida al vegetal, herrajes de latón', description: 'Bolso de viaje hecho a mano en Marrakech con curtido natural y cremalleras de latón macizo.' },
+                    de: { title: 'Weekender aus Leder', hub: 'Gerberei Marrakesch', materials: 'Pflanzlich gegerbtes Vollnarbenleder, Messingbeschläge', description: 'Handgefertigte Reisetasche aus Marrakesch mit natürlicher Gerbung und schweren Messing-Reißverschlüssen.' }
+                }
+            },
+            {
+                id: 'signature-scarf',
+                title: 'Signature Amazigh Scarf',
+                category: 'Accessories',
+                isHero: false,
+                sizing: 'none',
+                priceEUR: 65,
+                priceMAD: 450,
+                image: 'images/signature-scarf.jpg',
+                hub: 'Fez Weaving Guild',
+                materials: 'Fine Linen & Soft Cotton Weave',
+                description: 'Ultra-lightweight draped scarf featuring subtle woven geometric border patterns inspired by Atlas heritage.',
+                i18n: {
+                    fr: { title: 'Foulard amazigh signature', hub: 'Corporation des tisserands de Fès', materials: 'Tissage de lin fin & coton doux', description: 'Foulard ultra-léger aux bordures géométriques tissées, inspirées de l’héritage de l’Atlas.' },
+                    es: { title: 'Pañuelo amazigh exclusivo', hub: 'Gremio de tejedores de Fez', materials: 'Tejido de lino fino y algodón suave', description: 'Pañuelo ultraligero con sutiles cenefas geométricas tejidas inspiradas en la herencia del Atlas.' },
+                    de: { title: 'Signature-Amazigh-Schal', hub: 'Webergilde Fès', materials: 'Feines Leinen & weiche Baumwolle', description: 'Federleichter Schal mit dezent eingewebten geometrischen Bordüren, inspiriert vom Erbe des Atlas.' }
+                }
+            },
+            {
+                // Replaces "Minimalist Form Bracelet": one jewellery collection with 4 lines (4 photos)
+                id: 'minimalist-jewelry',
+                title: 'Minimalist Jewelry',
+                category: 'Jewelry',
+                isHero: false,
+                sizing: 'variants',
+                priceEUR: 60,
+                priceMAD: 420,
+                image: 'images/jewellery-line-1.jpg',
+                hub: 'Fez Metalwork Guild',
+                materials: 'Recycled Solid Brass with 18k Gold Plating',
+                description: 'Four capsule lines of architectural brass jewellery engraved with Amazigh symbols of protection and moonlight — from everyday pieces to hair jewellery and the traditional khelkhal anklet.',
+                variants: [
+                    { key: 'line-1', name: 'Jewellery line (1)', image: 'images/jewellery-line-1.jpg', priceEUR: 95, priceMAD: 690,
+                      note: 'Layered pendants, triangle studs, engraved cuff, charm bracelet & signet ring.',
+                      i18n: { fr: { name: 'Ligne bijoux (1)', note: 'Pendentifs superposés, puces triangle, manchette gravée, bracelet à breloques & chevalière.' }, es: { name: 'Línea de joyas (1)', note: 'Colgantes en capas, pendientes triángulo, brazalete grabado, pulsera de dijes y sello.' }, de: { name: 'Schmucklinie (1)', note: 'Lagen-Anhänger, Dreieck-Ohrstecker, gravierter Armreif, Bettelarmband & Siegelring.' } } },
+                    { key: 'line-2', name: 'Jewellery line (2)', image: 'images/jewellery-line-2.jpg', priceEUR: 85, priceMAD: 620,
+                      note: 'Aged-brass Yaz cuff, engraved hoops, diamond pendant & signet ring.',
+                      i18n: { fr: { name: 'Ligne bijoux (2)', note: 'Manchette Yaz en laiton vieilli, créoles gravées, pendentif losange & chevalière.' }, es: { name: 'Línea de joyas (2)', note: 'Brazalete Yaz de latón envejecido, aros grabados, colgante rombo y sello.' }, de: { name: 'Schmucklinie (2)', note: 'Yaz-Armreif aus gealtertem Messing, gravierte Creolen, Rauten-Anhänger & Siegelring.' } } },
+                    { key: 'hair', name: 'Jewellery line (Hair Jewellery)', image: 'images/jewellery-hair.jpg', priceEUR: 70, priceMAD: 490,
+                      note: 'Engraved hair sticks, barrettes and symbol hair pins.',
+                      i18n: { fr: { name: 'Ligne bijoux (Bijoux de cheveux)', note: 'Pics à cheveux gravés, barrettes et épingles à symboles.' }, es: { name: 'Línea de joyas (Joyas para el cabello)', note: 'Palillos grabados, pasadores y horquillas con símbolos.' }, de: { name: 'Schmucklinie (Haarschmuck)', note: 'Gravierte Haarstäbe, Haarspangen und Symbol-Haarnadeln.' } } },
+                    { key: 'khelkhal', name: 'Jewellery line (The Khelkhal)', image: 'images/jewellery-khelkhal.jpg', priceEUR: 60, priceMAD: 420,
+                      note: 'The traditional anklet, redrawn as a fine charm chain.',
+                      i18n: { fr: { name: 'Ligne bijoux (Le Khelkhal)', note: 'Le bracelet de cheville traditionnel, redessiné en fine chaîne à breloques.' }, es: { name: 'Línea de joyas (El Khelkhal)', note: 'La tobillera tradicional, reinterpretada como fina cadena con dijes.' }, de: { name: 'Schmucklinie (Der Khelkhal)', note: 'Der traditionelle Fußschmuck, neu gezeichnet als feine Charm-Kette.' } } }
+                ],
+                i18n: {
+                    fr: { title: 'Bijoux minimalistes', hub: 'Corporation des métaux de Fès', materials: 'Laiton massif recyclé, plaqué or 18 carats', description: 'Quatre lignes capsules de bijoux architecturaux en laiton gravés de symboles amazighs de protection et de clair de lune — des pièces du quotidien aux bijoux de cheveux et au khelkhal traditionnel.' },
+                    es: { title: 'Joyería minimalista', hub: 'Gremio de metalistería de Fez', materials: 'Latón macizo reciclado con baño de oro de 18 k', description: 'Cuatro líneas cápsula de joyas arquitectónicas de latón grabadas con símbolos amazigh de protección y luz de luna: desde piezas diarias hasta joyas para el cabello y el khelkhal tradicional.' },
+                    de: { title: 'Minimalistischer Schmuck', hub: 'Metallgilde Fès', materials: 'Recyceltes Massivmessing, 18 Karat vergoldet', description: 'Vier Kapsellinien architektonischen Messingschmucks, graviert mit Amazigh-Symbolen für Schutz und Mondlicht – vom Alltagsstück bis zu Haarschmuck und traditionellem Khelkhal.' }
+                }
+            },
+            {
+                // Replaces "Modern Heritage Eyewear"
+                id: 'modern-kaftan',
+                title: 'Modern Kaftan',
+                category: 'Apparel',
+                isHero: false,
+                sizing: 'clothing',
+                priceEUR: 175,
+                priceMAD: 1290,
+                image: 'images/modern-kaftan.jpg',
+                hub: 'Casablanca Atelier & Fez Embroidery Guild',
+                materials: 'Linen-Viscose Blend, Gold-Thread Hand Embroidery',
+                description: 'Fluid open-front kaftan in terracotta linen, finished with gold-thread Amazigh geometry along the placket and sleeve hems.',
+                i18n: {
+                    fr: { title: 'Caftan moderne', hub: 'Atelier de Casablanca & brodeurs de Fès', materials: 'Lin-viscose, broderie main au fil doré', description: 'Caftan fluide ouvert en lin terracotta, souligné d’une géométrie amazighe brodée au fil doré le long de l’encolure et des manches.' },
+                    es: { title: 'Caftán moderno', hub: 'Taller de Casablanca y bordadores de Fez', materials: 'Mezcla de lino y viscosa, bordado a mano con hilo dorado', description: 'Caftán fluido abierto en lino terracota, rematado con geometría amazigh bordada en hilo dorado en la tapeta y los bajos de las mangas.' },
+                    de: { title: 'Moderner Kaftan', hub: 'Atelier Casablanca & Stickergilde Fès', materials: 'Leinen-Viskose-Mischung, Handstickerei mit Goldfaden', description: 'Fließender, offener Kaftan aus terrakottafarbenem Leinen mit goldfadengestickter Amazigh-Geometrie an Blende und Ärmelsäumen.' }
+                }
+            },
+            {
+                id: 'artisanal-babouches',
+                title: 'Artisanal Leather Babouches',
+                category: 'Leather',
+                isHero: false,
+                sizing: 'shoes',
+                priceEUR: 125,
+                priceMAD: 890,
+                image: 'images/babouches.jpg',
+                hub: 'Marrakech Leather Guild',
+                materials: 'Soft Calfskin & Cushioned Leather Sole',
+                description: 'Modernized traditional Moroccan slip-on footwear with subtle central embroidery and ergonomic padded soles.',
+                i18n: {
+                    fr: { title: 'Babouches artisanales en cuir', hub: 'Corporation du cuir de Marrakech', materials: 'Veau souple & semelle en cuir rembourrée', description: 'La babouche marocaine traditionnelle modernisée, avec une broderie centrale discrète et une semelle ergonomique rembourrée.' },
+                    es: { title: 'Babuchas artesanales de piel', hub: 'Gremio de la piel de Marrakech', materials: 'Piel de becerro suave y suela acolchada', description: 'El calzado tradicional marroquí modernizado, con sutil bordado central y suela ergonómica acolchada.' },
+                    de: { title: 'Handgefertigte Leder-Babuschen', hub: 'Ledergilde Marrakesch', materials: 'Weiches Kalbsleder & gepolsterte Ledersohle', description: 'Modernisierter traditioneller marokkanischer Slipper mit dezenter Mittelstickerei und ergonomisch gepolsterter Sohle.' }
+                }
+            }
+        ];
+
+        // Country / currency / language markets
+        const CURRENCIES = {
+            'EUR_INT': { code: 'EUR', symbol: '€', lang: 'en', locale: 'en-IE', label: 'International · English (€)', market: 'EU' },
+            'EUR_FR':  { code: 'EUR', symbol: '€', lang: 'fr', locale: 'fr-FR', label: 'France · Français (€)', market: 'EU' },
+            'EUR_ES':  { code: 'EUR', symbol: '€', lang: 'es', locale: 'es-ES', label: 'España · Español (€)', market: 'EU' },
+            'EUR_DE':  { code: 'EUR', symbol: '€', lang: 'de', locale: 'de-DE', label: 'Deutschland · Deutsch (€)', market: 'EU' },
+            'MAD_MA':  { code: 'MAD', symbol: 'MAD ', lang: 'fr', locale: 'fr-FR', label: 'Maroc · Français (MAD)', market: 'MA' }
+        };
+
+        // Delivery rules for the Moroccan market (local courier, cash on delivery)
+        const MA_SHIPPING_FEE = 35;
+        const MA_FREE_SHIPPING_FROM = 1000;
+
+        let currentCurrencyKey = 'EUR_INT';
+        let currentFilter = 'all';
+        let cart = [];
+        let wishlist = [];
+        let modalState = { productId: null, variant: null, size: null };
+
+        // ---------- Language helpers ----------
+        const lang = () => CURRENCIES[currentCurrencyKey].lang;
+        const isMA = () => CURRENCIES[currentCurrencyKey].market === 'MA';
+
+        function t(key, vars = {}) {
+            const entry = UI[key];
+            let str = entry ? (entry[lang()] || entry.en) : key;
+            Object.keys(vars).forEach(k => { str = str.replace(`{${k}}`, vars[k]); });
+            return str;
+        }
+
+        function tr(english) {
+            // translate a static English phrase (category names etc.)
+            const e = I18N[english];
+            return (lang() !== 'en' && e && e[lang()]) ? e[lang()] : english;
+        }
+
+        function pField(product, field) {
+            const l = lang();
+            return (l !== 'en' && product.i18n && product.i18n[l] && product.i18n[l][field]) || product[field];
+        }
+
+        function vField(variant, field) {
+            const l = lang();
+            return (l !== 'en' && variant.i18n && variant.i18n[l] && variant.i18n[l][field]) || variant[field];
+        }
+
+        const ORIGINAL_TEXT = new WeakMap();
+
+        function applyTranslations() {
+            const l = lang();
+            document.documentElement.lang = l;
+            document.title = t('docTitle');
+
+            // 1) Plain text nodes, looked up by their original English text
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+                acceptNode(node) {
+                    if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+                    const parent = node.parentElement;
+                    if (!parent || ['SCRIPT', 'STYLE'].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+                    if (parent.closest('[data-i18n-skip], [data-i18n-html]')) return NodeFilter.FILTER_REJECT;
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            });
+
+            let node;
+            while ((node = walker.nextNode())) {
+                if (!ORIGINAL_TEXT.has(node)) ORIGINAL_TEXT.set(node, node.nodeValue);
+                const original = ORIGINAL_TEXT.get(node);
+                const key = original.replace(/\s+/g, ' ').trim();
+                const entry = I18N[key];
+                if (l === 'en' || !entry || !entry[l]) {
+                    node.nodeValue = original;
+                } else {
+                    const lead = original.match(/^\s*/)[0];
+                    const trail = original.match(/\s*$/)[0];
+                    node.nodeValue = lead + entry[l] + trail;
+                }
+            }
+
+            // 2) Rich paragraphs
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                if (el.dataset.orig === undefined) el.dataset.orig = el.innerHTML;
+                const entry = I18N_HTML[el.dataset.i18nHtml];
+                el.innerHTML = (l === 'en' || !entry || !entry[l]) ? el.dataset.orig : entry[l];
+            });
+
+            // 3) Attributes (placeholders & tooltips)
+            ['placeholder', 'title'].forEach(attr => {
+                document.querySelectorAll(`[${attr}]`).forEach(el => {
+                    const store = `orig${attr}`;
+                    if (el.dataset[store] === undefined) el.dataset[store] = el.getAttribute(attr);
+                    const entry = I18N[el.dataset[store]];
+                    el.setAttribute(attr, (l === 'en' || !entry || !entry[l]) ? el.dataset[store] : entry[l]);
+                });
+            });
+        }
+
+        // ---------- Pricing helpers ----------
+        function findVariant(product, variantKey) {
+            return product.variants ? (product.variants.find(v => v.key === variantKey) || product.variants[0]) : null;
+        }
+
+        function unitPrice(product, variantKey) {
+            const src = findVariant(product, variantKey) || product;
+            return isMA() ? src.priceMAD : src.priceEUR;
+        }
+
+        function minPrice(product) {
+            if (!product.variants) return unitPrice(product);
+            return Math.min(...product.variants.map(v => isMA() ? v.priceMAD : v.priceEUR));
+        }
+
+        function formatMoney(amount) {
+            const curr = CURRENCIES[currentCurrencyKey];
+            const n = new Intl.NumberFormat(curr.locale, { maximumFractionDigits: 0 }).format(Math.round(amount));
+            if (curr.code === 'MAD') return `${n} MAD`;
+            return curr.lang === 'en' ? `${curr.symbol}${n}` : `${n} ${curr.symbol}`;
+        }
+
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX = mouseX;
+        let ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Direct inner dot position
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        // Smooth Lerp loop for Cursor Outer Ring
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.18;
+            ringY += (mouseY - ringY) * 0.18;
+
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Add Hover class to Cursor when touching interactive elements
+        function attachCursorListeners() {
+            const interactables = document.querySelectorAll('a, button, input, select, .tilt-card, .hub-item');
+            interactables.forEach(el => {
+                if (el.dataset.cursorBound) return;
+                el.dataset.cursorBound = '1';
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+
+        const canvas = document.getElementById('moonlight-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class DustParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.speedY = (Math.random() - 0.5) * 1.5 - 0.5;
+                this.alpha = 1;
+                this.color = Math.random() > 0.4 ? '#D4AF37' : '#B85B35';
+                this.isMotif = Math.random() > 0.85; // 15% chance to draw Amazigh symbol
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= 0.015;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+
+                if (this.isMotif) {
+                    // Draw mini Amazigh Diamond Motif
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y - 6);
+                    ctx.lineTo(this.x + 6, this.y);
+                    ctx.lineTo(this.x, this.y + 6);
+                    ctx.lineTo(this.x - 6, this.y);
+                    ctx.closePath();
+                    ctx.stroke();
+                } else {
+                    // Draw Moonlight Dust Dot
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        let particlesArray = [];
+
+        window.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                const canvasX = e.clientX - rect.left;
+                const canvasY = e.clientY - rect.top;
+
+                // Spawn particles on cursor move over hero
+                if (Math.random() > 0.3) {
+                    particlesArray.push(new DustParticle(canvasX, canvasY));
+                }
+            }
+        });
+
+        function renderCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+
+                if (particlesArray[i].alpha <= 0) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                }
+            }
+
+            requestAnimationFrame(renderCanvas);
+        }
+        renderCanvas();
+
+        function initTiltCards() {
+            const cards = document.querySelectorAll('.tilt-card');
+            cards.forEach(card => {
+                if (card.dataset.tiltBound) return;
+                card.dataset.tiltBound = '1';
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    // Set CSS variables for spotlight radial position
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+
+                    // Calculate 3D tilt angles based on cursor offset from card center
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -7; // max 7 deg tilt
+                    const rotateY = ((x - centerX) / centerX) * 7;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+            });
+        }
+
+        const placeholder = (title, w = 600, h = 800) => `https://placehold.co/${w}x${h}/E6DAC8/3D2314?text=${encodeURIComponent(title)}`;
+
+        function renderProducts(filter = currentFilter) {
+            currentFilter = filter;
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            let filtered;
+            if (filter === 'all') filtered = PRODUCTS;
+            else if (filter === 'wishlist') filtered = PRODUCTS.filter(p => wishlist.includes(p.id));
+            else filtered = PRODUCTS.filter(p => p.category === filter);
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'tilt-card rounded-2xl glass-panel border border-tiziri-sand/50 overflow-hidden group transition-all duration-300 flex flex-col justify-between';
+
+                const title = pField(product, 'title');
+
+                // Image area: slideshow for products with several lines (jewellery), single image otherwise
+                const imageArea = product.variants
+                    ? `${product.variants.map((v, i) => `<img src="${v.image}" alt="${vField(v, 'name')}" onerror="this.src='${placeholder(v.name)}'" class="slide-img w-full h-full object-cover group-hover:scale-105 ${i === 0 ? 'is-active' : ''}">`).join('')}
+                       <div class="absolute top-3 right-3 z-10 flex gap-1.5 items-center bg-tiziri-black/30 backdrop-blur-sm rounded-full px-2 py-1.5">
+                           ${product.variants.map((v, i) => `<button class="slide-dot ${i === 0 ? 'is-active' : ''}" data-idx="${i}" title="${vField(v, 'name')}"></button>`).join('')}
+                       </div>
+                       <span class="absolute top-3 left-3 bg-tiziri-cream/90 text-tiziri-brown text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full shadow-md z-10">${t('lines')}</span>`
+                    : `<img src="${product.image}" alt="${title}" onerror="this.src='${placeholder(product.title)}'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">`;
+
+                const priceLabel = product.variants
+                    ? `<span class="text-xs font-sans font-medium text-tiziri-brown/60 mr-1">${t('from')}</span> ${formatMoney(minPrice(product))}`
+                    : formatMoney(unitPrice(product));
+
+                card.innerHTML = `
+                    <div class="spotlight-overlay"></div>
+
+                    <!-- Product Image & Overlay Controls -->
+                    <div class="relative overflow-hidden aspect-[3/4] bg-tiziri-sandlight/40">
+                        ${imageArea}
+
+                        ${product.isHero ? `<span class="absolute top-3 left-3 bg-tiziri-terracotta text-tiziri-cream text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full shadow-md z-10">${t('hero')}</span>` : ''}
+
+                        <!-- Quick Action Floating Buttons -->
+                        <div class="absolute bottom-3 inset-x-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                            <button onclick="openQuickView('${product.id}')" class="flex-1 py-2.5 rounded-full bg-tiziri-cream/90 text-tiziri-brown text-xs font-semibold hover:bg-tiziri-brown hover:text-tiziri-cream transition-colors backdrop-blur-md shadow-md">
+                                <i class="fa-solid fa-magnifying-glass mr-1"></i> ${t('quickView')}
+                            </button>
+                            <button onclick="toggleWishlist('${product.id}')" class="w-10 h-10 rounded-full bg-tiziri-cream/90 text-tiziri-brown flex items-center justify-center hover:bg-tiziri-terracotta hover:text-tiziri-cream transition-colors backdrop-blur-md shadow-md">
+                                <i class="${wishlist.includes(product.id) ? 'fa-solid text-tiziri-terracotta' : 'fa-regular'} fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="p-5 flex flex-col flex-1 justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-tiziri-terracotta">${tr(product.category)}</span>
+                            <h3 class="font-serif text-xl font-semibold text-tiziri-black mt-1 mb-2 group-hover:text-tiziri-terracotta transition-colors">${title}</h3>
+                            <p class="text-xs text-tiziri-brown/70 line-clamp-2 mb-4">${pField(product, 'description')}</p>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-3 border-t border-tiziri-sand/30">
+                            <span class="font-serif text-xl font-bold text-tiziri-brown">${priceLabel}</span>
+                            <button onclick="${product.variants ? `openQuickView('${product.id}')` : `addToCart('${product.id}')`}" class="px-4 py-2 rounded-full bg-tiziri-brown text-tiziri-cream text-xs font-semibold hover:bg-tiziri-terracotta transition-colors">
+                                ${t('add')}
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+                if (product.variants) initCardSlideshow(card);
+            });
+
+            // Re-bind cursor tilt and custom hover listeners
+            initTiltCards();
+            attachCursorListeners();
+        }
+
+        // Jewellery card: images cycle on hover, dots let the visitor pick a line
+        function initCardSlideshow(card) {
+            const slides = card.querySelectorAll('.slide-img');
+            const dots = card.querySelectorAll('.slide-dot');
+            let idx = 0, timer = null;
+            const show = (i) => {
+                idx = (i + slides.length) % slides.length;
+                slides.forEach((s, k) => s.classList.toggle('is-active', k === idx));
+                dots.forEach((d, k) => d.classList.toggle('is-active', k === idx));
+            };
+            dots.forEach(d => d.addEventListener('click', (e) => { e.stopPropagation(); show(+d.dataset.idx); }));
+            card.addEventListener('mouseenter', () => { clearInterval(timer); timer = setInterval(() => show(idx + 1), 1400); });
+            card.addEventListener('mouseleave', () => { clearInterval(timer); });
+        }
+
+        function setFilterPill(filter) {
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                const on = b.dataset.filter === filter;
+                b.classList.toggle('bg-tiziri-brown', on);
+                b.classList.toggle('text-tiziri-cream', on);
+                b.classList.toggle('bg-tiziri-sandlight', !on);
+                b.classList.toggle('text-tiziri-brown', !on);
+            });
+        }
+
+        // Category Filter Buttons Listener
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setFilterPill(btn.dataset.filter);
+                renderProducts(btn.dataset.filter);
+            });
+        });
+
+        // ---------- Quick view ----------
+        const SIZE_SETS = { clothing: ['XS', 'S', 'M', 'L', 'XL'], shoes: ['38', '39', '40', '41', '42', '43', '44', '45'] };
+        const optBtnBase = 'size-btn px-4 py-2 border rounded-lg text-xs font-semibold transition-colors';
+        const optOn = 'border-tiziri-brown bg-tiziri-brown text-tiziri-cream';
+        const optOff = 'border-tiziri-sand hover:border-tiziri-terracotta';
+
+        function renderModalOptions(product) {
+            const label = document.getElementById('modal-option-label');
+            const box = document.getElementById('size-options');
+            const note = document.getElementById('modal-variant-note');
+            box.innerHTML = '';
+            note.classList.add('hidden');
+
+            if (product.sizing === 'variants') {
+                label.innerText = t('selectLine');
+                box.className = 'grid grid-cols-2 gap-2';
+                product.variants.forEach(v => {
+                    const b = document.createElement('button');
+                    const on = v.key === modalState.variant;
+                    b.className = `flex items-center gap-2 p-1.5 pr-2 border rounded-xl text-left transition-colors ${on ? 'border-tiziri-terracotta bg-tiziri-sandlight' : 'border-tiziri-sand hover:border-tiziri-terracotta'}`;
+                    b.innerHTML = `<img src="${v.image}" onerror="this.src='${placeholder(v.name, 100, 130)}'" class="w-10 h-12 object-cover rounded-md">
+                        <span class="leading-tight"><span class="block text-[11px] font-semibold text-tiziri-black">${vField(v, 'name')}</span>
+                        <span class="block text-[11px] text-tiziri-terracotta font-bold">${formatMoney(isMA() ? v.priceMAD : v.priceEUR)}</span></span>`;
+                    b.onclick = () => { modalState.variant = v.key; updateModalForVariant(product); };
+                    box.appendChild(b);
+                });
+                const v = findVariant(product, modalState.variant);
+                note.innerText = vField(v, 'note');
+                note.classList.remove('hidden');
+            } else if (SIZE_SETS[product.sizing]) {
+                label.innerText = product.sizing === 'shoes' ? t('selectShoe') : t('selectSize');
+                box.className = 'flex flex-wrap gap-2';
+                SIZE_SETS[product.sizing].forEach(s => {
+                    const b = document.createElement('button');
+                    b.className = `${optBtnBase} ${s === modalState.size ? optOn : optOff}`;
+                    b.innerText = s;
+                    b.onclick = () => { modalState.size = s; renderModalOptions(product); };
+                    box.appendChild(b);
+                });
+            } else {
+                label.innerText = t('oneSize');
+                box.className = 'flex flex-wrap gap-2';
+                box.innerHTML = `<span class="${optBtnBase} ${optOn}">${t('oneSize')}</span>`;
+            }
+            attachCursorListeners();
+        }
+
+        function updateModalForVariant(product) {
+            const v = findVariant(product, modalState.variant);
+            const imgEl = document.getElementById('modal-product-img');
+            imgEl.src = v.image;
+            document.getElementById('modal-product-price').innerText = formatMoney(unitPrice(product, v.key));
+            renderModalOptions(product);
+            setupMagnifierLens(v.image);
+        }
+
+        function openQuickView(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            modalState = {
+                productId,
+                variant: product.variants ? product.variants[0].key : null,
+                size: product.sizing === 'clothing' ? 'M' : product.sizing === 'shoes' ? '41' : null
+            };
+
+            document.getElementById('modal-product-title').innerText = pField(product, 'title');
+            document.getElementById('modal-product-price').innerText = formatMoney(unitPrice(product, modalState.variant));
+            document.getElementById('modal-product-desc').innerText = pField(product, 'description');
+            document.getElementById('modal-product-hub').innerText = pField(product, 'hub');
+            document.getElementById('modal-product-mats').innerText = pField(product, 'materials');
+            document.getElementById('modal-product-tag').innerText = product.isHero ? t('hero') : tr(product.category);
+
+            const imgEl = document.getElementById('modal-product-img');
+            const startImage = product.variants ? product.variants[0].image : product.image;
+            imgEl.src = startImage;
+            imgEl.onerror = function() {
+                this.src = placeholder(product.title);
+            };
+
+            renderModalOptions(product);
+
+            const addBtn = document.getElementById('modal-add-btn');
+            addBtn.onclick = () => {
+                addToCart(product.id, modalState.variant, modalState.size);
+                closeQuickViewModal();
+            };
+
+            const modal = document.getElementById('quickview-modal');
+            const content = document.getElementById('quickview-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+
+            // Initialize Magnifier Zoom Lens listener on modal image
+            setupMagnifierLens(startImage);
+        }
+
+        function closeQuickViewModal() {
+            const modal = document.getElementById('quickview-modal');
+            const content = document.getElementById('quickview-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.add('scale-95');
+        }
+
+        function setupMagnifierLens(imgUrl) {
+            const container = document.getElementById('modal-img-container');
+            const lens = document.getElementById('modal-magnifier-lens');
+            const img = document.getElementById('modal-product-img');
+
+            lens.style.backgroundImage = `url('${imgUrl || img.src}')`;
+
+            container.onmousemove = function(e) {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                lens.style.left = `${x}px`;
+                lens.style.top = `${y}px`;
+
+                lens.style.backgroundSize = `${rect.width * 2.5}px ${rect.height * 2.5}px`;
+                lens.style.backgroundPosition = `-${x * 2.5 - lens.offsetWidth / 2}px -${y * 2.5 - lens.offsetHeight / 2}px`;
+            };
+        }
+
+        // ---------- Bag ----------
+        function addToCart(productId, variant = null, size = null) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+            if (product.variants && !variant) variant = product.variants[0].key;
+
+            const uid = [productId, variant || '', size || ''].join('|');
+            const existing = cart.find(item => item.uid === uid);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ uid, id: productId, variant, size, qty: 1 });
+            }
+
+            updateCartUI();
+            const name = variant ? vField(findVariant(product, variant), 'name') : pField(product, 'title');
+            showToast(t('added', { x: name }));
+        }
+
+        function removeFromCart(uid) {
+            cart = cart.filter(item => item.uid !== uid);
+            updateCartUI();
+        }
+
+        function changeQty(uid, delta) {
+            const item = cart.find(i => i.uid === uid);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) return removeFromCart(uid);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-count-badge');
+            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+            badge.innerText = totalCount;
+
+            const listContainer = document.getElementById('cart-items-list');
+            listContainer.innerHTML = '';
+
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-12 text-tiziri-brown/60 text-xs">
+                        <i class="fa-solid fa-bag-shopping text-3xl mb-3 text-tiziri-sand"></i>
+                        <p>${t('empty')}</p>
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    const product = PRODUCTS.find(p => p.id === item.id);
+                    const variant = findVariant(product, item.variant);
+                    const price = unitPrice(product, item.variant);
+                    const itemTotal = price * item.qty;
+                    subtotal += itemTotal;
+
+                    const name = variant ? vField(variant, 'name') : pField(product, 'title');
+                    const detail = variant ? pField(product, 'title') : item.size ? `${t('size')} ${item.size}` : t('oneSize');
+                    const img = variant ? variant.image : product.image;
+
+                    const itemRow = document.createElement('div');
+                    itemRow.className = 'flex items-center justify-between p-3 rounded-xl bg-tiziri-sandlight/50 border border-tiziri-sand/40 text-xs';
+                    itemRow.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <img src="${img}" class="w-12 h-16 object-cover rounded-md border border-tiziri-sand" onerror="this.src='https://placehold.co/100x100/E6DAC8/3D2314'">
+                            <div>
+                                <h4 class="font-serif font-semibold text-sm text-tiziri-black">${name}</h4>
+                                <span class="block text-[10px] uppercase tracking-wider text-tiziri-brown/50">${detail}</span>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <button onclick="changeQty('${item.uid}', -1)" class="w-5 h-5 rounded-full border border-tiziri-sand hover:border-tiziri-terracotta flex items-center justify-center"><i class="fa-solid fa-minus text-[8px]"></i></button>
+                                    <span class="text-tiziri-brown/70">${formatMoney(price)} × ${item.qty}</span>
+                                    <button onclick="changeQty('${item.uid}', 1)" class="w-5 h-5 rounded-full border border-tiziri-sand hover:border-tiziri-terracotta flex items-center justify-center"><i class="fa-solid fa-plus text-[8px]"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold text-tiziri-terracotta">${formatMoney(itemTotal)}</span>
+                            <button onclick="removeFromCart('${item.uid}')" class="text-tiziri-brown/50 hover:text-red-600">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    listContainer.appendChild(itemRow);
+                });
+            }
+
+            // Shipping rules depend on the market
+            const shipLabel = document.getElementById('cart-shipping-label');
+            const shipVal = document.getElementById('cart-shipping-val');
+            const freeBox = document.getElementById('free-ship-box');
+            let shipping = 0;
+
+            if (isMA()) {
+                shipping = (subtotal === 0 || subtotal >= MA_FREE_SHIPPING_FROM) ? 0 : MA_SHIPPING_FEE;
+                shipLabel.innerText = t('shipMA');
+                shipVal.innerText = shipping === 0 ? t('free') : formatMoney(shipping);
+                shipVal.className = `font-semibold ${shipping === 0 ? 'text-emerald-700' : 'text-tiziri-brown'}`;
+                freeBox.classList.toggle('hidden', subtotal === 0);
+                const left = MA_FREE_SHIPPING_FROM - subtotal;
+                document.getElementById('free-ship-text').innerText = left > 0 ? t('freeLeft', { x: formatMoney(left) }) : t('freeOk');
+                document.getElementById('free-ship-bar').style.width = `${Math.min(100, (subtotal / MA_FREE_SHIPPING_FROM) * 100)}%`;
+            } else {
+                shipLabel.innerText = t('shipEU');
+                shipVal.innerText = t('shipEUval');
+                shipVal.className = 'font-semibold text-emerald-700';
+                freeBox.classList.add('hidden');
+            }
+
+            document.getElementById('checkout-btn').innerText = isMA() ? t('btnMA') : t('btnEU');
+            document.getElementById('cart-subtotal').innerText = formatMoney(subtotal);
+            document.getElementById('cart-total').innerText = formatMoney(subtotal + shipping);
+        }
+
+        function toggleCartDrawer(forceClose = false) {
+            const drawer = document.getElementById('cart-drawer');
+            const content = document.getElementById('cart-drawer-content');
+
+            const isOpen = !drawer.classList.contains('opacity-0');
+            if (isOpen || forceClose === true) {
+                drawer.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.add('translate-x-full');
+            } else {
+                drawer.classList.remove('opacity-0', 'pointer-events-none');
+                content.classList.remove('translate-x-full');
+            }
+        }
+
+        document.getElementById('cart-btn').addEventListener('click', () => toggleCartDrawer());
+
+        // ---------- Wishlist ----------
+        function toggleWishlist(productId) {
+            if (wishlist.includes(productId)) {
+                wishlist = wishlist.filter(id => id !== productId);
+                showToast(t('removedWish'));
+            } else {
+                wishlist.push(productId);
+                showToast(t('savedWish'));
+            }
+
+            const badge = document.getElementById('wishlist-badge');
+            badge.innerText = wishlist.length;
+            badge.style.opacity = wishlist.length > 0 ? '1' : '0';
+            badge.style.transform = wishlist.length > 0 ? 'scale(1)' : 'scale(0.5)';
+
+            // keep the visitor on the filter they were browsing
+            if (currentFilter === 'wishlist' && wishlist.length === 0) {
+                setFilterPill('all');
+                renderProducts('all');
+            } else {
+                renderProducts(currentFilter);
+            }
+        }
+
+        // Heart icon in the header now shows the saved pieces
+        document.getElementById('wishlist-btn').addEventListener('click', () => {
+            if (wishlist.length === 0) { showToast(t('wishEmpty')); return; }
+            setFilterPill(null);
+            renderProducts('wishlist');
+            document.getElementById('collection').scrollIntoView({ behavior: 'smooth' });
+            showToast(t('wishShow'));
+        });
+
+        // ---------- Country / language / currency switch ----------
+        function updateMarketNote() {
+            const note = document.getElementById('market-note');
+            note.innerHTML = isMA()
+                ? `<i class="fa-solid fa-location-dot text-tiziri-terracotta"></i> ${t('noteMA')}`
+                : `<i class="fa-solid fa-plane-departure text-tiziri-terracotta"></i> ${t('noteEU')}`;
+        }
+
+        function applyMarket(key, announce = true) {
+            if (!CURRENCIES[key]) key = 'EUR_INT';
+            currentCurrencyKey = key;
+            document.getElementById('currency-selector').value = key;
+            try { localStorage.setItem('tiziri-market', key); } catch (e) { /* storage unavailable */ }
+
+            document.body.classList.add('lang-switching');
+            applyTranslations();
+            updateMarketNote();
+            renderProducts(currentFilter);
+            updateCartUI();
+            updateFinancialCalculator();
+            if (modalState.productId && !document.getElementById('quickview-modal').classList.contains('opacity-0')) {
+                openQuickView(modalState.productId);
+            }
+            setTimeout(() => document.body.classList.remove('lang-switching'), 160);
+            if (announce) showToast(t('switched', { x: CURRENCIES[key].label }));
+        }
+
+        document.getElementById('currency-selector').addEventListener('change', (e) => applyMarket(e.target.value));
+
+        const priceSlider = document.getElementById('price-slider');
+        const qtySlider = document.getElementById('qty-slider');
+        const cacSlider = document.getElementById('cac-slider');
+
+        function updateFinancialCalculator() {
+            const sellingPriceIncVAT = parseFloat(priceSlider.value);
+            const batchQty = parseInt(qtySlider.value);
+            const cac = parseFloat(cacSlider.value);
+
+            // Displays
+            document.getElementById('price-slider-val').innerText = `€${sellingPriceIncVAT}`;
+            document.getElementById('qty-slider-val').innerText = `${batchQty} ${t('units')}`;
+            document.getElementById('cac-slider-val').innerText = `€${cac.toFixed(2)}`;
+
+            // Calculations
+            const netPriceExVAT = sellingPriceIncVAT / 1.20; // 20% French VAT
+            const productionCost = 55.00;
+            const packagingCost = 3.00;
+            const transportCost = 8.00;
+            const customsCost = 1.50;
+            const paymentCost = (sellingPriceIncVAT * 0.029) + 0.30;
+            const returnsProvision = 6.00;
+
+            const totalUnitCost = productionCost + packagingCost + transportCost + customsCost + paymentCost + returnsProvision + cac;
+            const netProfit = netPriceExVAT - totalUnitCost;
+            const marginPercent = (netProfit / netPriceExVAT) * 100;
+
+            // DOM Updates
+            document.getElementById('calc-net-price').innerText = `€${netPriceExVAT.toFixed(2)}`;
+            document.getElementById('calc-total-cost').innerText = `€${totalUnitCost.toFixed(2)}`;
+
+            const profitEl = document.getElementById('calc-net-profit');
+            profitEl.innerText = `€${netProfit.toFixed(2)}`;
+            profitEl.className = `font-serif text-2xl sm:text-3xl font-bold ${netProfit >= 0 ? 'text-tiziri-gold' : 'text-red-400'}`;
+
+            document.getElementById('cost-payment').innerText = `€${paymentCost.toFixed(2)}`;
+            document.getElementById('cost-marketing').innerText = `€${cac.toFixed(2)}`;
+
+            document.getElementById('margin-percent-val').innerText = `${marginPercent.toFixed(1)}%`;
+            document.getElementById('margin-progress-bar').style.width = `${Math.max(0, Math.min(100, marginPercent))}%`;
+        }
+
+        priceSlider.addEventListener('input', updateFinancialCalculator);
+        qtySlider.addEventListener('input', updateFinancialCalculator);
+        cacSlider.addEventListener('input', updateFinancialCalculator);
+
+        function setActiveMarket(market) {
+            ['france', 'spain', 'germany'].forEach(m => {
+                const card = document.getElementById(`phase-card-${m}`);
+                if (m === market) {
+                    card.classList.add('border-2', 'border-tiziri-terracotta');
+                    card.classList.remove('border-tiziri-sand');
+                } else {
+                    card.classList.remove('border-2', 'border-tiziri-terracotta');
+                    card.classList.add('border-tiziri-sand');
+                }
+            });
+        }
+
+        function openBusinessReportModal() {
+            const modal = document.getElementById('business-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeBusinessReportModal() {
+            const modal = document.getElementById('business-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function checkoutSimulation() {
+            if (cart.length === 0) {
+                showToast(t('bagEmpty'));
+                return;
+            }
+            const morocco = isMA();
+            showToast(morocco ? t('checkoutMA') : t('checkoutEU'));
+            setTimeout(() => {
+                cart = [];
+                updateCartUI();
+                toggleCartDrawer(true);
+                showToast(morocco ? t('placedMA') : t('placed'));
+            }, 1800);
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-tiziri-brown text-tiziri-cream px-5 py-3 rounded-2xl shadow-2xl text-xs font-semibold flex items-center gap-2 border border-tiziri-sand/30 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-tiziri-gold"></i> <span>${msg}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Close windows with Esc or by clicking the dark background
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            closeQuickViewModal();
+            closeBusinessReportModal();
+            toggleCartDrawer(true);
+        });
+        document.getElementById('quickview-modal').addEventListener('click', (e) => { if (e.target.id === 'quickview-modal') closeQuickViewModal(); });
+        document.getElementById('business-modal').addEventListener('click', (e) => { if (e.target.id === 'business-modal') closeBusinessReportModal(); });
+        document.getElementById('cart-drawer').addEventListener('click', (e) => { if (e.target.id === 'cart-drawer') toggleCartDrawer(true); });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Newsletter confirmation in the visitor's language
+            const newsletter = document.querySelector('footer form');
+            newsletter.removeAttribute('onsubmit');
+            newsletter.addEventListener('submit', (e) => { e.preventDefault(); showToast(t('subscribed')); newsletter.reset(); });
+
+            // Restore the last chosen country/language (falls back to International · English)
+            let saved = 'EUR_INT';
+            try { saved = localStorage.getItem('tiziri-market') || 'EUR_INT'; } catch (e) { /* storage unavailable */ }
+            applyMarket(saved, false);
+            attachCursorListeners();
+
+            // Mobile menu toggle logic
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
