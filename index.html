@@ -235,7 +235,7 @@
 
     <!-- Navigation Header -->
     <header class="sticky top-0 z-40 w-full transition-all duration-300 glass-panel border-b border-tiziri-sand/30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
             
             <!-- Logo & Brand Wordmark -->
             <a href="#" class="flex items-center gap-3 group">
@@ -249,12 +249,12 @@
                 </div>
                 <div>
                     <span class="font-serif text-2xl tracking-[0.2em] font-semibold text-tiziri-brown block leading-none group-hover:text-tiziri-terracotta transition-colors">TIZIRI</span>
-                    <span class="text-[9px] uppercase tracking-[0.3em] text-tiziri-brown/60 font-medium">Casablanca • Paris</span>
+                    <span class="text-[9px] uppercase tracking-[0.3em] text-tiziri-brown/60 font-medium whitespace-nowrap">Casablanca • Paris</span>
                 </div>
             </a>
 
             <!-- Desktop Navigation Links -->
-            <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-[0.15em] text-tiziri-brown/80">
+            <nav class="hidden 2xl:flex items-center gap-5 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-tiziri-brown/80">
                 <a href="#collection" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Collection 01</a>
                 <a href="#story" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Heritage & Craft</a>
                 <a href="#strategy" class="hover:text-tiziri-terracotta transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-tiziri-terracotta hover:after:w-full after:transition-all">Global Strategy</a>
@@ -290,18 +290,19 @@
                 </button>
 
                 <!-- Mobile Menu Toggle -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-tiziri-brown hover:text-tiziri-terracotta">
+                <button id="mobile-menu-btn" class="2xl:hidden p-2 text-tiziri-brown hover:text-tiziri-terracotta">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Navigation Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-tiziri-sand/40 px-6 py-4 flex flex-col gap-3 text-sm font-semibold tracking-wider uppercase">
+        <div id="mobile-menu" class="hidden 2xl:hidden glass-panel border-b border-tiziri-sand/40 px-6 py-4 flex flex-col gap-3 text-sm font-semibold tracking-wider uppercase">
             <a href="#collection" class="mobile-link py-2 hover:text-tiziri-terracotta">Collection 01</a>
             <a href="#story" class="mobile-link py-2 hover:text-tiziri-terracotta">Heritage & Craft</a>
             <a href="#strategy" class="mobile-link py-2 hover:text-tiziri-terracotta">Global Strategy</a>
             <a href="#economics" class="mobile-link py-2 hover:text-tiziri-terracotta">Financial Model</a>
+            <a href="#payment" class="mobile-link py-2 hover:text-tiziri-terracotta">Payment</a>
             <a href="#risks" class="mobile-link py-2 hover:text-tiziri-terracotta">Risk Matrix</a>
         </div>
     </header>
@@ -758,6 +759,68 @@
         </div>
     </section>
 
+    <!-- Payment Methods (from the International Trade Plan) -->
+    <section id="payment" class="py-20 bg-tiziri-sandlight/40 border-y border-tiziri-sand/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-xs uppercase tracking-[0.3em] text-tiziri-terracotta font-semibold block mb-2">Payment Methods</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-normal text-tiziri-black mb-4">
+                    Easy for customers, <span class="italic text-tiziri-terracotta">safe for us.</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- Main consumer method -->
+                <div class="tilt-card lg:col-span-6 p-8 rounded-3xl bg-tiziri-terracotta text-tiziri-cream shadow-xl relative overflow-hidden">
+                    <div class="spotlight-overlay"></div>
+                    <span class="text-[11px] uppercase tracking-[0.25em] font-semibold text-tiziri-sandlight/80 block mb-3">Main method for consumers</span>
+                    <h3 class="font-serif text-4xl sm:text-5xl font-semibold mb-3">Online payment</h3>
+                    <p class="text-sm text-tiziri-sandlight/90 mb-8">Cards, wallets and local methods at checkout</p>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="flex items-center justify-center gap-2 py-3 rounded-full bg-tiziri-cream text-tiziri-black text-sm font-semibold"><i class="fa-solid fa-credit-card text-tiziri-terracotta"></i> Cards</div>
+                        <div class="flex items-center justify-center gap-2 py-3 rounded-full bg-tiziri-cream text-tiziri-black text-sm font-semibold"><i class="fa-brands fa-apple text-tiziri-terracotta"></i> Apple Pay</div>
+                        <div class="flex items-center justify-center gap-2 py-3 rounded-full bg-tiziri-cream text-tiziri-black text-sm font-semibold"><i class="fa-brands fa-paypal text-tiziri-terracotta"></i> PayPal</div>
+                        <div class="flex items-center justify-center gap-2 py-3 rounded-full bg-tiziri-cream text-tiziri-black text-sm font-semibold"><i class="fa-solid fa-building-columns text-tiziri-terracotta"></i> iDEAL</div>
+                        <div class="flex items-center justify-center gap-2 py-3 rounded-full bg-tiziri-cream text-tiziri-black text-sm font-semibold"><i class="fa-solid fa-euro-sign text-tiziri-terracotta"></i> SEPA</div>
+                        <div class="flex items-center justify-center gap-2 py-3 rounded-full bg-tiziri-cream text-tiziri-black text-sm font-semibold"><i class="fa-solid fa-receipt text-tiziri-terracotta"></i> Klarna (Germany)</div>
+                    </div>
+                </div>
+
+                <!-- B2B & safety -->
+                <div class="lg:col-span-6 grid grid-cols-1 gap-6">
+                    <div class="tilt-card p-6 rounded-3xl bg-white border border-tiziri-sand/50 shadow-md flex gap-4 items-start">
+                        <div class="spotlight-overlay"></div>
+                        <div class="w-11 h-11 shrink-0 rounded-full bg-tiziri-terracotta/10 flex items-center justify-center text-tiziri-terracotta"><i class="fa-solid fa-building-columns"></i></div>
+                        <div>
+                            <h3 class="font-serif text-2xl font-semibold text-tiziri-terracotta mb-1">Bank transfer (SEPA)</h3>
+                            <p class="text-sm text-tiziri-brown/80">Wholesale and concept-store orders, with part payment upfront</p>
+                        </div>
+                    </div>
+                    <div class="tilt-card p-6 rounded-3xl bg-white border border-tiziri-sand/50 shadow-md flex gap-4 items-start">
+                        <div class="spotlight-overlay"></div>
+                        <div class="w-11 h-11 shrink-0 rounded-full bg-tiziri-terracotta/10 flex items-center justify-center text-tiziri-terracotta"><i class="fa-solid fa-file-signature"></i></div>
+                        <div>
+                            <h3 class="font-serif text-2xl font-semibold text-tiziri-terracotta mb-1">Letter of credit</h3>
+                            <p class="text-sm text-tiziri-brown/80">Only for large first orders from new, unknown distributors</p>
+                        </div>
+                    </div>
+                    <div class="tilt-card p-6 rounded-3xl bg-white border border-tiziri-sand/50 shadow-md flex gap-4 items-start">
+                        <div class="spotlight-overlay"></div>
+                        <div class="w-11 h-11 shrink-0 rounded-full bg-tiziri-terracotta/10 flex items-center justify-center text-tiziri-terracotta"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h3 class="font-serif text-2xl font-semibold text-tiziri-terracotta mb-1">Also in place</h3>
+                            <p class="text-sm text-tiziri-brown/80">A euro account to cut conversion costs, no cash on delivery</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Risk Management & Solutions Hub -->
     <section id="risks" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -896,6 +959,13 @@
                         <a href="#" class="p-2 rounded-full bg-tiziri-brown hover:bg-tiziri-terracotta hover:text-tiziri-cream transition-colors"><i class="fa-brands fa-tiktok text-base"></i></a>
                         <a href="#" class="p-2 rounded-full bg-tiziri-brown hover:bg-tiziri-terracotta hover:text-tiziri-cream transition-colors"><i class="fa-brands fa-linkedin text-base"></i></a>
                     </div>
+                    <!-- Accepted payment methods -->
+                    <div class="flex flex-wrap items-center gap-3 mt-6 text-2xl text-tiziri-sand/80" title="Accepted payment methods">
+                        <i class="fa-brands fa-cc-visa"></i><i class="fa-brands fa-cc-mastercard"></i><i class="fa-brands fa-cc-apple-pay"></i><i class="fa-brands fa-cc-paypal"></i>
+                        <span class="text-[10px] font-bold tracking-wider border border-tiziri-sand/40 rounded px-1.5 py-0.5">iDEAL</span>
+                        <span class="text-[10px] font-bold tracking-wider border border-tiziri-sand/40 rounded px-1.5 py-0.5">SEPA</span>
+                        <span class="text-[10px] font-bold tracking-wider border border-tiziri-sand/40 rounded px-1.5 py-0.5">Klarna</span>
+                    </div>
                 </div>
 
                 <div class="md:col-span-3 text-xs space-y-2">
@@ -904,6 +974,7 @@
                     <p><a href="#story" class="hover:text-tiziri-sand transition-colors">Craftsmanship & Hubs</a></p>
                     <p><a href="#strategy" class="hover:text-tiziri-sand transition-colors">EU Expansion Strategy</a></p>
                     <p><a href="#economics" class="hover:text-tiziri-sand transition-colors">Atlas Jacket Financials</a></p>
+                    <p><a href="#payment" class="hover:text-tiziri-sand transition-colors">Payment Methods</a></p>
                     <p><a href="#risks" class="hover:text-tiziri-sand transition-colors">Risk Mitigation Matrix</a></p>
                 </div>
 
@@ -928,7 +999,7 @@
     
     <!-- Quick View Product Modal with Inspection Zoom Lens -->
     <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-tiziri-cream rounded-3xl max-w-4xl w-full p-6 sm:p-8 relative overflow-hidden border border-tiziri-sand shadow-2xl transform scale-95 transition-transform duration-300" id="quickview-content">
+        <div class="bg-tiziri-cream rounded-3xl max-w-4xl w-full p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto border border-tiziri-sand shadow-2xl transform scale-95 transition-transform duration-300" id="quickview-content">
             <button onclick="closeQuickViewModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-tiziri-sandlight hover:bg-tiziri-sand text-tiziri-brown flex items-center justify-center transition-colors">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
@@ -960,6 +1031,19 @@
                         <div><strong>Craft Hub:</strong> <span id="modal-product-hub" data-i18n-skip>Casablanca & Fez Atelier</span></div>
                         <div><strong>Materials:</strong> <span id="modal-product-mats" data-i18n-skip>100% Wool Outer, Silk-Touch Lining</span></div>
                     </div>
+
+                    <!-- How this price is built (same logic as the €190 Atlas Jacket example) -->
+                    <details id="price-breakdown" data-i18n-skip class="mb-6 rounded-xl border border-tiziri-sand/60 bg-tiziri-cream text-xs group">
+                        <summary class="flex items-center justify-between px-3.5 py-2.5 font-semibold text-tiziri-brown list-none">
+                            <span><i class="fa-solid fa-scale-balanced text-tiziri-terracotta mr-2"></i><span id="pb-title">How this price is built</span></span>
+                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-3.5 pb-3.5">
+                            <div id="pb-bar" class="flex h-2.5 w-full rounded-full overflow-hidden mb-3"></div>
+                            <div id="pb-rows" class="space-y-1.5"></div>
+                            <p id="pb-compare" class="mt-3 text-[11px] text-tiziri-brown/70 leading-relaxed"></p>
+                        </div>
+                    </details>
 
                     <!-- Size / Line Selector (adapts to the product: clothing sizes, shoe sizes, jewellery lines or one size) -->
                     <div class="mb-6" data-i18n-skip>
@@ -1020,6 +1104,13 @@
                     <span id="cart-total" class="text-tiziri-terracotta">€0.00</span>
                 </div>
 
+                <!-- Payment method (methods depend on the market) -->
+                <div data-i18n-skip class="pt-2">
+                    <span id="pay-label" class="block text-[10px] uppercase font-bold tracking-widest text-tiziri-brown/60 mb-2">Payment method</span>
+                    <div id="pay-options" class="grid grid-cols-3 gap-2"></div>
+                    <p id="pay-note" class="text-[10px] text-tiziri-brown/60 mt-2"></p>
+                </div>
+
                 <button id="checkout-btn" data-i18n-skip onclick="checkoutSimulation()" class="w-full py-4 rounded-full bg-tiziri-terracotta text-tiziri-cream font-semibold text-xs tracking-[0.2em] uppercase hover:bg-tiziri-terracottadark transition-all shadow-md mt-2">
                     Proceed to Direct EU Checkout
                 </button>
@@ -1054,6 +1145,25 @@
            English stays the source, FR / ES / DE are swapped in on demand.
            ===================================================================== */
         const I18N = {
+
+            // Payment section
+            "Payment": { fr: "Paiement", es: "Pago", de: "Zahlung" },
+            "Payment Methods": { fr: "Moyens de paiement", es: "Métodos de pago", de: "Zahlungsmethoden" },
+            "Easy for customers,": { fr: "Simple pour les clients,", es: "Fácil para los clientes,", de: "Einfach für Kunden," },
+            "safe for us.": { fr: "sûr pour nous.", es: "seguro para nosotros.", de: "sicher für uns." },
+            "Main method for consumers": { fr: "Méthode principale pour les particuliers", es: "Método principal para consumidores", de: "Hauptmethode für Endkunden" },
+            "Online payment": { fr: "Paiement en ligne", es: "Pago online", de: "Online-Zahlung" },
+            "Cards, wallets and local methods at checkout": { fr: "Cartes, portefeuilles et moyens locaux au paiement", es: "Tarjetas, monederos y métodos locales al pagar", de: "Karten, Wallets und lokale Methoden an der Kasse" },
+            "Cards": { fr: "Cartes", es: "Tarjetas", de: "Karten" },
+            "Klarna (Germany)": { fr: "Klarna (Allemagne)", es: "Klarna (Alemania)", de: "Klarna (Deutschland)" },
+            "Bank transfer (SEPA)": { fr: "Virement bancaire (SEPA)", es: "Transferencia bancaria (SEPA)", de: "Banküberweisung (SEPA)" },
+            "Wholesale and concept-store orders, with part payment upfront": { fr: "Commandes de gros et de concept-stores, avec acompte à la commande", es: "Pedidos mayoristas y de concept stores, con pago parcial por adelantado", de: "Großhandels- und Concept-Store-Bestellungen mit Anzahlung" },
+            "Letter of credit": { fr: "Lettre de crédit", es: "Carta de crédito", de: "Akkreditiv" },
+            "Only for large first orders from new, unknown distributors": { fr: "Uniquement pour les grosses premières commandes de nouveaux distributeurs", es: "Solo para grandes primeros pedidos de distribuidores nuevos y desconocidos", de: "Nur für große Erstbestellungen neuer, unbekannter Händler" },
+            "Also in place": { fr: "Également en place", es: "También disponible", de: "Außerdem" },
+            "A euro account to cut conversion costs, no cash on delivery": { fr: "Un compte en euros pour réduire les frais de change, pas de paiement à la livraison", es: "Una cuenta en euros para reducir costes de cambio, sin pago contra reembolso", de: "Ein Euro-Konto senkt Umrechnungskosten, keine Zahlung bei Lieferung" },
+            "Accepted payment methods": { fr: "Moyens de paiement acceptés", es: "Métodos de pago aceptados", de: "Akzeptierte Zahlungsmethoden" },
+
             // Header & navigation
             "Heritage & Craft": { fr: "Héritage & Savoir-faire", es: "Herencia y Artesanía", de: "Erbe & Handwerk" },
             "Global Strategy": { fr: "Stratégie mondiale", es: "Estrategia global", de: "Globale Strategie" },
@@ -1289,6 +1399,23 @@
 
         // Interface strings used by the dynamic parts (cards, bag, toasts, modal)
         const UI = {
+            payLabel: { en: "Payment method", fr: "Moyen de paiement", es: "Método de pago", de: "Zahlungsmethode" },
+            payNoteEU: { en: "Secure online payment · no cash on delivery", fr: "Paiement en ligne sécurisé · pas de paiement à la livraison", es: "Pago online seguro · sin pago contra reembolso", de: "Sichere Online-Zahlung · keine Zahlung bei Lieferung" },
+            payNoteMA: { en: "Secure online payment with Moroccan & international cards · no cash on delivery", fr: "Paiement en ligne sécurisé par carte marocaine ou internationale · pas de paiement à la livraison", es: "Pago online seguro con tarjetas marroquíes e internacionales · sin pago contra reembolso", de: "Sichere Online-Zahlung mit marokkanischen & internationalen Karten · keine Zahlung bei Lieferung" },
+            payKlarna: { en: "Buy now, pay later with Klarna (Germany)", fr: "Achetez maintenant, payez plus tard avec Klarna (Allemagne)", es: "Compra ahora y paga después con Klarna (Alemania)", de: "Jetzt kaufen, später bezahlen mit Klarna" },
+            btnPay: { en: "Pay {x} securely", fr: "Payer {x} en toute sécurité", es: "Pagar {x} de forma segura", de: "{x} sicher bezahlen" },
+            paying: { en: "Redirecting to secure {x} payment...", fr: "Redirection vers le paiement sécurisé {x}...", es: "Redirigiendo al pago seguro con {x}...", de: "Weiterleitung zur sicheren Zahlung mit {x}..." },
+            pbTitle: { en: "How this price is built", fr: "Comment ce prix est construit", es: "Cómo se forma este precio", de: "So entsteht dieser Preis" },
+            pbProd: { en: "Production", fr: "Production", es: "Producción", de: "Produktion" },
+            pbPack: { en: "Packaging", fr: "Emballage", es: "Embalaje", de: "Verpackung" },
+            pbTransport: { en: "Transport to the EU", fr: "Transport vers l'UE", es: "Transporte a la UE", de: "Transport in die EU" },
+            pbCustoms: { en: "Customs and fees", fr: "Douane et frais", es: "Aduana y tasas", de: "Zoll und Gebühren" },
+            pbPRM: { en: "Payment, returns, marketing", fr: "Paiement, retours, marketing", es: "Pago, devoluciones, marketing", de: "Zahlung, Retouren, Marketing" },
+            pbVAT: { en: "VAT (20%)", fr: "TVA (20 %)", es: "IVA (20 %)", de: "MwSt. (20 %)" },
+            pbProfit: { en: "Profit", fr: "Profit", es: "Beneficio", de: "Gewinn" },
+            pbPrice: { en: "Selling price", fr: "Prix de vente", es: "Precio de venta", de: "Verkaufspreis" },
+            pbCompareEU: { en: "Profit ≈ {pct}% of revenue excl. VAT. In Morocco the same piece costs {ma} — no EU freight, customs or EU returns.", fr: "Profit ≈ {pct} % du chiffre d'affaires HT. Au Maroc, la même pièce coûte {ma} — sans fret UE, douane ni retours UE.", es: "Beneficio ≈ {pct} % de los ingresos sin IVA. En Marruecos la misma pieza cuesta {ma}, sin flete UE, aduana ni devoluciones UE.", de: "Gewinn ≈ {pct} % des Nettoumsatzes. In Marokko kostet dasselbe Stück {ma} – ohne EU-Fracht, Zoll oder EU-Retouren." },
+            pbCompareMA: { en: "Same piece in France: {eu} (≈ {conv}). Sold in Morocco there is no EU freight, customs or EU returns, and marketing costs less — so it's {pct}% cheaper with the same ≈{margin}% margin.", fr: "La même pièce en France : {eu} (≈ {conv}). Vendue au Maroc, sans fret UE, douane ni retours UE, et avec un marketing moins cher, elle coûte {pct} % de moins, pour une marge similaire (≈ {margin} %).", es: "La misma pieza en Francia: {eu} (≈ {conv}). Vendida en Marruecos no hay flete UE, aduana ni devoluciones UE y el marketing cuesta menos: es un {pct} % más barata con un margen similar (≈ {margin} %).", de: "Dasselbe Stück in Frankreich: {eu} (≈ {conv}). In Marokko entfallen EU-Fracht, Zoll und EU-Retouren, Marketing ist günstiger – daher {pct} % billiger bei ähnlicher Marge (≈ {margin} %)." },
             quickView: { en: "Quick View", fr: "Aperçu rapide", es: "Vista rápida", de: "Schnellansicht" },
             add: { en: "+ Add", fr: "+ Ajouter", es: "+ Añadir", de: "+ Hinzufügen" },
             hero: { en: "Hero Item", fr: "Pièce phare", es: "Pieza estrella", de: "Signature-Piece" },
@@ -1308,10 +1435,7 @@
             switched: { en: "Now showing: {x}", fr: "Affichage : {x}", es: "Mostrando: {x}", de: "Angezeigt: {x}" },
             subscribed: { en: "Subscribed to TIZIRI Newsletter!", fr: "Inscription à la newsletter TIZIRI confirmée !", es: "¡Suscrito a la newsletter de TIZIRI!", de: "TIZIRI-Newsletter abonniert!" },
             bagEmpty: { en: "Your bag is empty!", fr: "Votre panier est vide !", es: "¡Tu bolsa está vacía!", de: "Ihre Tasche ist leer!" },
-            checkoutEU: { en: "Simulating direct EU Checkout via IOSS VAT clearance...", fr: "Simulation du paiement UE direct via l'IOSS...", es: "Simulando el pago directo UE vía IOSS...", de: "Direkter EU-Checkout über IOSS wird simuliert..." },
-            checkoutMA: { en: "Confirming your order — cash on delivery...", fr: "Confirmation de votre commande — paiement à la livraison...", es: "Confirmando tu pedido — pago contra reembolso...", de: "Bestellung wird bestätigt — Zahlung bei Lieferung..." },
             placed: { en: "Order successfully placed! Merci beaucoup.", fr: "Commande confirmée ! Merci beaucoup.", es: "¡Pedido realizado! Muchas gracias.", de: "Bestellung aufgegeben! Vielen Dank." },
-            placedMA: { en: "Order confirmed! We'll call you to arrange delivery. Choukran!", fr: "Commande confirmée ! Nous vous appelons pour la livraison. Choukran !", es: "¡Pedido confirmado! Te llamaremos para la entrega. ¡Choukran!", de: "Bestellung bestätigt! Wir rufen Sie zur Lieferung an. Choukran!" },
             units: { en: "units", fr: "unités", es: "unidades", de: "Stück" },
             shipEU: { en: "Estimated Shipping (EU Hub)", fr: "Livraison estimée (hub UE)", es: "Envío estimado (centro UE)", de: "Geschätzter Versand (EU-Hub)" },
             shipEUval: { en: "Calculated at checkout", fr: "Calculée au paiement", es: "Se calcula al pagar", de: "Wird beim Checkout berechnet" },
@@ -1319,8 +1443,6 @@
             free: { en: "Free", fr: "Offerte", es: "Gratis", de: "Kostenlos" },
             freeLeft: { en: "Add {x} more for free delivery", fr: "Plus que {x} pour la livraison offerte", es: "Te faltan {x} para el envío gratis", de: "Noch {x} bis zur kostenlosen Lieferung" },
             freeOk: { en: "Free delivery unlocked ✓", fr: "Livraison offerte débloquée ✓", es: "Envío gratis conseguido ✓", de: "Kostenlose Lieferung freigeschaltet ✓" },
-            btnEU: { en: "Proceed to Direct EU Checkout", fr: "Passer au paiement UE", es: "Ir al pago UE", de: "Zum EU-Checkout" },
-            btnMA: { en: "Order now — Cash on delivery", fr: "Commander — Paiement à la livraison", es: "Pedir — Pago contra reembolso", de: "Bestellen — Zahlung bei Lieferung" },
             totalEU: { en: "Total (inc. VAT)", fr: "Total (TTC)", es: "Total (IVA incl.)", de: "Gesamt (inkl. MwSt.)" },
             noteEU: { en: "EU prices incl. VAT · shipped from our Paris hub", fr: "Prix UE TTC · expédié depuis notre hub de Paris", es: "Precios UE con IVA · enviado desde nuestro centro de París", de: "EU-Preise inkl. MwSt. · Versand aus unserem Pariser Hub" },
             noteMA: { en: "Local Moroccan prices — made here, no export or EU shipping costs", fr: "Prix locaux Maroc — fabriqué ici, sans frais d'export ni de livraison UE", es: "Precios locales de Marruecos — sin costes de exportación ni envío a la UE", de: "Lokale Preise in Marokko — ohne Export- oder EU-Versandkosten" },
@@ -1335,13 +1457,14 @@
         const PRODUCTS = [
             {
                 id: 'atlas-jacket',
+                cost: { production: 55, transport: 8 }, // EUR per unit (see 'How this price is built')
                 title: 'The Atlas Jacket',
                 category: 'Apparel',
                 isHero: true,
                 sizing: 'clothing',
                 priceEUR: 190,
                 priceMAD: 1490,
-                image: 'images/atlas-jacket.jpg',
+                image: 'atlas-jacket.jpg',
                 hub: 'Casablanca & Fez',
                 materials: 'Structured Wool Blend, Geometric Lapel Embroidery',
                 description: 'Hero Piece. Oversized structured coat with understated Atlas geometric embroidery along the lapels and cuffs.',
@@ -1353,13 +1476,14 @@
             },
             {
                 id: 'medina-shirt',
+                cost: { production: 30, transport: 5 }, // EUR per unit (see 'How this price is built')
                 title: 'The Medina Shirt',
                 category: 'Apparel',
                 isHero: false,
                 sizing: 'clothing',
                 priceEUR: 110,
                 priceMAD: 790,
-                image: 'images/medina-shirt.jpg',
+                image: 'medina-shirt.jpg',
                 hub: 'Casablanca Atelier',
                 materials: '100% Organic Linen, Tone-on-Tone Stitching',
                 description: 'Relaxed premium band-collar shirt featuring subtle geometric motif detailing down the placket.',
@@ -1371,13 +1495,14 @@
             },
             {
                 id: 'sahara-set',
+                cost: { production: 44, transport: 7 }, // EUR per unit (see 'How this price is built')
                 title: 'The Sahara Linen Set',
                 category: 'Apparel',
                 isHero: false,
                 sizing: 'clothing',
                 priceEUR: 160,
                 priceMAD: 1190,
-                image: 'images/sahara-set.jpg',
+                image: 'sahara-set.jpg',
                 hub: 'Casablanca Atelier',
                 materials: 'Pure Sand & Terracotta Linen',
                 description: 'Lightweight two-piece relaxed linen shirt and wide-leg trouser ensemble designed for summer elegance.',
@@ -1389,13 +1514,14 @@
             },
             {
                 id: 'leather-weekender',
+                cost: { production: 85, transport: 12 }, // EUR per unit (see 'How this price is built')
                 title: 'Leather Weekender Bag',
                 category: 'Leather',
                 isHero: false,
                 sizing: 'none',
                 priceEUR: 280,
                 priceMAD: 2190,
-                image: 'images/leather-weekender.jpg',
+                image: 'leather-weekender.jpg',
                 hub: 'Marrakech Tannery',
                 materials: 'Vegetable-Tanned Full Grain Leather, Brass Hardware',
                 description: 'Handcrafted travel bag crafted in Marrakech with natural tanning processes and heavy brass zip closures.',
@@ -1407,13 +1533,14 @@
             },
             {
                 id: 'signature-scarf',
+                cost: { production: 16, transport: 3 }, // EUR per unit (see 'How this price is built')
                 title: 'Signature Amazigh Scarf',
                 category: 'Accessories',
                 isHero: false,
                 sizing: 'none',
                 priceEUR: 65,
                 priceMAD: 450,
-                image: 'images/signature-scarf.jpg',
+                image: 'signature-scarf.jpg',
                 hub: 'Fez Weaving Guild',
                 materials: 'Fine Linen & Soft Cotton Weave',
                 description: 'Ultra-lightweight draped scarf featuring subtle woven geometric border patterns inspired by Atlas heritage.',
@@ -1426,27 +1553,28 @@
             {
                 // Replaces "Minimalist Form Bracelet": one jewellery collection with 4 lines (4 photos)
                 id: 'minimalist-jewelry',
+                cost: { production: 28, transport: 2 }, // EUR per unit (see 'How this price is built')
                 title: 'Minimalist Jewelry',
                 category: 'Jewelry',
                 isHero: false,
                 sizing: 'variants',
                 priceEUR: 60,
                 priceMAD: 420,
-                image: 'images/jewellery-line-1.jpg',
+                image: 'jewellery-line-1.jpg',
                 hub: 'Fez Metalwork Guild',
                 materials: 'Recycled Solid Brass with 18k Gold Plating',
                 description: 'Four capsule lines of architectural brass jewellery engraved with Amazigh symbols of protection and moonlight — from everyday pieces to hair jewellery and the traditional khelkhal anklet.',
                 variants: [
-                    { key: 'line-1', name: 'Jewellery line (1)', image: 'images/jewellery-line-1.jpg', priceEUR: 95, priceMAD: 690,
+                    { key: 'line-1', cost: { production: 28, transport: 2 }, name: 'Jewellery line (1)', image: 'jewellery-line-1.jpg', priceEUR: 95, priceMAD: 690,
                       note: 'Layered pendants, triangle studs, engraved cuff, charm bracelet & signet ring.',
                       i18n: { fr: { name: 'Ligne bijoux (1)', note: 'Pendentifs superposés, puces triangle, manchette gravée, bracelet à breloques & chevalière.' }, es: { name: 'Línea de joyas (1)', note: 'Colgantes en capas, pendientes triángulo, brazalete grabado, pulsera de dijes y sello.' }, de: { name: 'Schmucklinie (1)', note: 'Lagen-Anhänger, Dreieck-Ohrstecker, gravierter Armreif, Bettelarmband & Siegelring.' } } },
-                    { key: 'line-2', name: 'Jewellery line (2)', image: 'images/jewellery-line-2.jpg', priceEUR: 85, priceMAD: 620,
+                    { key: 'line-2', cost: { production: 25, transport: 2 }, name: 'Jewellery line (2)', image: 'jewellery-line-2.jpg', priceEUR: 85, priceMAD: 620,
                       note: 'Aged-brass Yaz cuff, engraved hoops, diamond pendant & signet ring.',
                       i18n: { fr: { name: 'Ligne bijoux (2)', note: 'Manchette Yaz en laiton vieilli, créoles gravées, pendentif losange & chevalière.' }, es: { name: 'Línea de joyas (2)', note: 'Brazalete Yaz de latón envejecido, aros grabados, colgante rombo y sello.' }, de: { name: 'Schmucklinie (2)', note: 'Yaz-Armreif aus gealtertem Messing, gravierte Creolen, Rauten-Anhänger & Siegelring.' } } },
-                    { key: 'hair', name: 'Jewellery line (Hair Jewellery)', image: 'images/jewellery-hair.jpg', priceEUR: 70, priceMAD: 490,
+                    { key: 'hair', cost: { production: 20, transport: 2 }, name: 'Jewellery line (Hair Jewellery)', image: 'jewellery-hair.jpg', priceEUR: 70, priceMAD: 490,
                       note: 'Engraved hair sticks, barrettes and symbol hair pins.',
                       i18n: { fr: { name: 'Ligne bijoux (Bijoux de cheveux)', note: 'Pics à cheveux gravés, barrettes et épingles à symboles.' }, es: { name: 'Línea de joyas (Joyas para el cabello)', note: 'Palillos grabados, pasadores y horquillas con símbolos.' }, de: { name: 'Schmucklinie (Haarschmuck)', note: 'Gravierte Haarstäbe, Haarspangen und Symbol-Haarnadeln.' } } },
-                    { key: 'khelkhal', name: 'Jewellery line (The Khelkhal)', image: 'images/jewellery-khelkhal.jpg', priceEUR: 60, priceMAD: 420,
+                    { key: 'khelkhal', cost: { production: 17, transport: 1.5 }, name: 'Jewellery line (The Khelkhal)', image: 'jewellery-khelkhal.jpg', priceEUR: 60, priceMAD: 420,
                       note: 'The traditional anklet, redrawn as a fine charm chain.',
                       i18n: { fr: { name: 'Ligne bijoux (Le Khelkhal)', note: 'Le bracelet de cheville traditionnel, redessiné en fine chaîne à breloques.' }, es: { name: 'Línea de joyas (El Khelkhal)', note: 'La tobillera tradicional, reinterpretada como fina cadena con dijes.' }, de: { name: 'Schmucklinie (Der Khelkhal)', note: 'Der traditionelle Fußschmuck, neu gezeichnet als feine Charm-Kette.' } } }
                 ],
@@ -1459,13 +1587,14 @@
             {
                 // Replaces "Modern Heritage Eyewear"
                 id: 'modern-kaftan',
+                cost: { production: 50, transport: 7 }, // EUR per unit (see 'How this price is built')
                 title: 'Modern Kaftan',
                 category: 'Apparel',
                 isHero: false,
                 sizing: 'clothing',
                 priceEUR: 175,
                 priceMAD: 1290,
-                image: 'images/modern-kaftan.jpg',
+                image: 'modern-kaftan.jpg',
                 hub: 'Casablanca Atelier & Fez Embroidery Guild',
                 materials: 'Linen-Viscose Blend, Gold-Thread Hand Embroidery',
                 description: 'Fluid open-front kaftan in terracotta linen, finished with gold-thread Amazigh geometry along the placket and sleeve hems.',
@@ -1477,13 +1606,14 @@
             },
             {
                 id: 'artisanal-babouches',
+                cost: { production: 33, transport: 7 }, // EUR per unit (see 'How this price is built')
                 title: 'Artisanal Leather Babouches',
                 category: 'Leather',
                 isHero: false,
                 sizing: 'shoes',
                 priceEUR: 125,
                 priceMAD: 890,
-                image: 'images/babouches.jpg',
+                image: 'babouches.jpg',
                 hub: 'Marrakech Leather Guild',
                 materials: 'Soft Calfskin & Cushioned Leather Sole',
                 description: 'Modernized traditional Moroccan slip-on footwear with subtle central embroidery and ergonomic padded soles.',
@@ -1507,6 +1637,63 @@
         // Delivery rules for the Moroccan market (local courier, cash on delivery)
         const MA_SHIPPING_FEE = 35;
         const MA_FREE_SHIPPING_FROM = 1000;
+
+        // ---------- Pricing model (same logic as the €190 Atlas Jacket example) ----------
+        // EU:      production + packaging + air freight + customs/broker + (payment 2.9% + €0.30, EU returns ≈3.2%, marketing ≈13%) + VAT 20%
+        // Morocco: production + packaging + (payment 2.9%, returns 1%, local marketing 6%) + TVA 20%  → no EU freight, customs or EU returns
+        const MAD_RATE = 10.85; // 1 EUR ≈ 10.85 MAD
+        function priceModel(product, variantKey) {
+            const v = findVariant(product, variantKey);
+            const c = (v && v.cost) || product.cost;
+            const small = product.category === 'Jewelry';
+            const packaging = small ? 1.5 : 3;
+            if (isMA()) {
+                const price = (v || product).priceMAD;
+                const vat = price - price / 1.2;
+                const rows = [
+                    ['pbProd', c.production * MAD_RATE, '#3D2314'],
+                    ['pbPack', packaging * MAD_RATE, '#6B705C'],
+                    ['pbPRM', price * (0.029 + 0.01 + 0.06), '#BCA383'],
+                    ['pbVAT', vat, '#D8C3A5']
+                ];
+                const costs = rows.reduce((a, r) => a + r[1], 0);
+                rows.push(['pbProfit', price - costs, '#B85B35']);
+                return { price, net: price / 1.2, rows };
+            }
+            const price = (v || product).priceEUR;
+            const vat = price - price / 1.2;
+            const rows = [
+                ['pbProd', c.production, '#3D2314'],
+                ['pbPack', packaging, '#6B705C'],
+                ['pbTransport', c.transport, '#1B2A4A'],
+                ['pbCustoms', small ? 0.8 : 1.5, '#964322'],
+                ['pbPRM', price * 0.029 + 0.30 + price * 6 / 190 + price * 25 / 190, '#BCA383'],
+                ['pbVAT', vat, '#D8C3A5']
+            ];
+            const costs = rows.reduce((a, r) => a + r[1], 0);
+            rows.push(['pbProfit', price - costs, '#B85B35']);
+            return { price, net: price / 1.2, rows };
+        }
+
+        // ---------- Payment methods (International Trade Plan) ----------
+        const PAYMENT_METHODS = {
+            card:     { icon: 'fa-solid fa-credit-card', name: { en: 'Cards', fr: 'Carte', es: 'Tarjeta', de: 'Karte' } },
+            applepay: { icon: 'fa-brands fa-apple', name: { en: 'Apple Pay' } },
+            paypal:   { icon: 'fa-brands fa-paypal', name: { en: 'PayPal' } },
+            ideal:    { icon: 'fa-solid fa-building-columns', name: { en: 'iDEAL' } },
+            sepa:     { icon: 'fa-solid fa-euro-sign', name: { en: 'SEPA' } },
+            klarna:   { icon: 'fa-solid fa-receipt', name: { en: 'Klarna' } }
+        };
+        // Which methods each market sees at checkout (Klarna = Germany, iDEAL = international/NL, SEPA = euro area)
+        const PAYMENT_BY_MARKET = {
+            EUR_INT: ['card', 'applepay', 'paypal', 'ideal', 'sepa'],
+            EUR_FR:  ['card', 'applepay', 'paypal', 'sepa'],
+            EUR_ES:  ['card', 'applepay', 'paypal', 'sepa'],
+            EUR_DE:  ['card', 'applepay', 'paypal', 'sepa', 'klarna'],
+            MAD_MA:  ['card', 'applepay', 'paypal']
+        };
+        let selectedPayment = 'card';
+        const payName = (k) => PAYMENT_METHODS[k].name[lang()] || PAYMENT_METHODS[k].name.en;
 
         let currentCurrencyKey = 'EUR_INT';
         let currentFilter = 'all';
@@ -1612,6 +1799,14 @@
             const n = new Intl.NumberFormat(curr.locale, { maximumFractionDigits: 0 }).format(Math.round(amount));
             if (curr.code === 'MAD') return `${n} MAD`;
             return curr.lang === 'en' ? `${curr.symbol}${n}` : `${n} ${curr.symbol}`;
+        }
+
+        // Breakdown amounts: cents in euros (like the business-plan slide), whole dirhams in MAD
+        function formatMoneyExact(amount) {
+            if (isMA()) return formatMoney(amount);
+            const curr = CURRENCIES[currentCurrencyKey];
+            const n = new Intl.NumberFormat(curr.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount);
+            return curr.lang === 'en' ? `€${n}` : `${n} €`;
         }
 
         const cursorDot = document.getElementById('cursor-dot');
@@ -1790,12 +1985,12 @@
 
                 // Image area: slideshow for products with several lines (jewellery), single image otherwise
                 const imageArea = product.variants
-                    ? `${product.variants.map((v, i) => `<img src="${v.image}" alt="${vField(v, 'name')}" onerror="this.src='${placeholder(v.name)}'" class="slide-img w-full h-full object-cover group-hover:scale-105 ${i === 0 ? 'is-active' : ''}">`).join('')}
+                    ? `${product.variants.map((v, i) => `<img src="${v.image}" alt="${vField(v, 'name')}" onerror="this.onerror=null;this.src='${placeholder(v.name)}'" class="slide-img w-full h-full object-cover group-hover:scale-105 ${i === 0 ? 'is-active' : ''}">`).join('')}
                        <div class="absolute top-3 right-3 z-10 flex gap-1.5 items-center bg-tiziri-black/30 backdrop-blur-sm rounded-full px-2 py-1.5">
                            ${product.variants.map((v, i) => `<button class="slide-dot ${i === 0 ? 'is-active' : ''}" data-idx="${i}" title="${vField(v, 'name')}"></button>`).join('')}
                        </div>
                        <span class="absolute top-3 left-3 bg-tiziri-cream/90 text-tiziri-brown text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full shadow-md z-10">${t('lines')}</span>`
-                    : `<img src="${product.image}" alt="${title}" onerror="this.src='${placeholder(product.title)}'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">`;
+                    : `<img src="${product.image}" alt="${title}" onerror="this.onerror=null;this.src='${placeholder(product.title)}'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">`;
 
                 const priceLabel = product.variants
                     ? `<span class="text-xs font-sans font-medium text-tiziri-brown/60 mr-1">${t('from')}</span> ${formatMoney(minPrice(product))}`
@@ -1900,7 +2095,7 @@
                     const b = document.createElement('button');
                     const on = v.key === modalState.variant;
                     b.className = `flex items-center gap-2 p-1.5 pr-2 border rounded-xl text-left transition-colors ${on ? 'border-tiziri-terracotta bg-tiziri-sandlight' : 'border-tiziri-sand hover:border-tiziri-terracotta'}`;
-                    b.innerHTML = `<img src="${v.image}" onerror="this.src='${placeholder(v.name, 100, 130)}'" class="w-10 h-12 object-cover rounded-md">
+                    b.innerHTML = `<img src="${v.image}" onerror="this.onerror=null;this.src='${placeholder(v.name, 100, 130)}'" class="w-10 h-12 object-cover rounded-md">
                         <span class="leading-tight"><span class="block text-[11px] font-semibold text-tiziri-black">${vField(v, 'name')}</span>
                         <span class="block text-[11px] text-tiziri-terracotta font-bold">${formatMoney(isMA() ? v.priceMAD : v.priceEUR)}</span></span>`;
                     b.onclick = () => { modalState.variant = v.key; updateModalForVariant(product); };
@@ -1933,7 +2128,30 @@
             imgEl.src = v.image;
             document.getElementById('modal-product-price').innerText = formatMoney(unitPrice(product, v.key));
             renderModalOptions(product);
+            renderPriceBreakdown(product, v.key);
             setupMagnifierLens(v.image);
+        }
+
+        function renderPriceBreakdown(product, variantKey) {
+            const m = priceModel(product, variantKey);
+            document.getElementById('pb-title').innerText = t('pbTitle');
+            document.getElementById('pb-bar').innerHTML = m.rows
+                .map(r => `<span style="width:${Math.max(0, r[1]) / m.price * 100}%;background:${r[2]}" title="${t(r[0])}"></span>`).join('');
+            document.getElementById('pb-rows').innerHTML = m.rows.map(r => `
+                <div class="flex items-center justify-between ${r[0] === 'pbProfit' ? 'pt-1.5 border-t border-tiziri-sand/50 font-bold text-tiziri-terracotta' : 'text-tiziri-brown/80'}">
+                    <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm" style="background:${r[2]}"></span>${t(r[0])}</span>
+                    <span class="font-semibold">${formatMoneyExact(r[1])}</span>
+                </div>`).join('') + `
+                <div class="flex items-center justify-between pt-1.5 border-t border-tiziri-sand/50 font-bold text-tiziri-black">
+                    <span>${t('pbPrice')}</span><span>${formatMoneyExact(m.price)}</span>
+                </div>`;
+            const v = findVariant(product, variantKey);
+            const src = v || product;
+            const profit = m.rows[m.rows.length - 1][1];
+            const pct = Math.round(profit / m.net * 100);
+            document.getElementById('pb-compare').innerText = isMA()
+                ? t('pbCompareMA', { eu: `€${src.priceEUR}`, conv: `${Math.round(src.priceEUR * MAD_RATE).toLocaleString('fr-FR')} MAD`, pct: Math.round((1 - src.priceMAD / (src.priceEUR * MAD_RATE)) * 100), margin: pct })
+                : t('pbCompareEU', { pct, ma: `${src.priceMAD.toLocaleString('fr-FR')} MAD` });
         }
 
         function openQuickView(productId) {
@@ -1957,10 +2175,12 @@
             const startImage = product.variants ? product.variants[0].image : product.image;
             imgEl.src = startImage;
             imgEl.onerror = function() {
+                this.onerror = null;
                 this.src = placeholder(product.title);
             };
 
             renderModalOptions(product);
+            renderPriceBreakdown(product, modalState.variant);
 
             const addBtn = document.getElementById('modal-add-btn');
             addBtn.onclick = () => {
@@ -2069,7 +2289,7 @@
                     itemRow.className = 'flex items-center justify-between p-3 rounded-xl bg-tiziri-sandlight/50 border border-tiziri-sand/40 text-xs';
                     itemRow.innerHTML = `
                         <div class="flex items-center gap-3">
-                            <img src="${img}" class="w-12 h-16 object-cover rounded-md border border-tiziri-sand" onerror="this.src='https://placehold.co/100x100/E6DAC8/3D2314'">
+                            <img src="${img}" class="w-12 h-16 object-cover rounded-md border border-tiziri-sand" onerror="this.onerror=null;this.src='https://placehold.co/100x100/E6DAC8/3D2314'">
                             <div>
                                 <h4 class="font-serif font-semibold text-sm text-tiziri-black">${name}</h4>
                                 <span class="block text-[10px] uppercase tracking-wider text-tiziri-brown/50">${detail}</span>
@@ -2113,7 +2333,17 @@
                 freeBox.classList.add('hidden');
             }
 
-            document.getElementById('checkout-btn').innerText = isMA() ? t('btnMA') : t('btnEU');
+            // Payment methods for this market
+            const methods = PAYMENT_BY_MARKET[currentCurrencyKey] || PAYMENT_BY_MARKET.EUR_INT;
+            if (!methods.includes(selectedPayment)) selectedPayment = 'card';
+            document.getElementById('pay-label').innerText = t('payLabel');
+            document.getElementById('pay-options').innerHTML = methods.map(k => `
+                <button onclick="selectPayment('${k}')" class="flex flex-col items-center justify-center gap-1 py-2 rounded-xl border text-[11px] font-semibold transition-colors ${k === selectedPayment ? 'border-tiziri-terracotta bg-tiziri-terracotta text-tiziri-cream' : 'border-tiziri-sand bg-tiziri-cream text-tiziri-brown hover:border-tiziri-terracotta'}">
+                    <i class="${PAYMENT_METHODS[k].icon} text-sm"></i>${payName(k)}
+                </button>`).join('');
+            document.getElementById('pay-note').innerHTML = `<i class="fa-solid fa-lock mr-1"></i>${selectedPayment === 'klarna' ? t('payKlarna') : isMA() ? t('payNoteMA') : t('payNoteEU')}`;
+            document.getElementById('checkout-btn').innerHTML = `<i class="fa-solid fa-lock mr-2"></i>${t('btnPay', { x: formatMoney(subtotal + shipping) })}`;
+            attachCursorListeners();
             document.getElementById('cart-subtotal').innerText = formatMoney(subtotal);
             document.getElementById('cart-total').innerText = formatMoney(subtotal + shipping);
         }
@@ -2265,18 +2495,22 @@
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
+        function selectPayment(key) {
+            selectedPayment = key;
+            updateCartUI();
+        }
+
         function checkoutSimulation() {
             if (cart.length === 0) {
                 showToast(t('bagEmpty'));
                 return;
             }
-            const morocco = isMA();
-            showToast(morocco ? t('checkoutMA') : t('checkoutEU'));
+            showToast(t('paying', { x: payName(selectedPayment) }));
             setTimeout(() => {
                 cart = [];
                 updateCartUI();
                 toggleCartDrawer(true);
-                showToast(morocco ? t('placedMA') : t('placed'));
+                showToast(t('placed'));
             }, 1800);
         }
 
